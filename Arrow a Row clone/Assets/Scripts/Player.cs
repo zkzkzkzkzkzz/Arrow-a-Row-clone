@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
         else
             isLeft = false;
 
-        Debug.Log($"isWalking : {isWalking}, isLeft : {isLeft}");
+        //Debug.Log($"isWalking : {isWalking}, isLeft : {isLeft}");
     }
 
     void FixedUpdate()
