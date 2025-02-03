@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 3f;
     private Rigidbody rb;
     private float moveInput;
     private bool isWalking;
     private bool isLeft;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -19,7 +18,7 @@ public class Player : MonoBehaviour
             Debug.LogError("Rigidbody를 찾을 수 없습니다.");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // A, D 또는 방향키로 좌우 이동 (왼쪽 : -1, 오른쪽 : 1)
