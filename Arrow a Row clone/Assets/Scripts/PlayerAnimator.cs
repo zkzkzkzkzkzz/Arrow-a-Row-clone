@@ -9,15 +9,17 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private const string IS_WALK = "isWalk";
     private const string IS_LEFT = "isLeft";
+    private const string IS_SHOOT = "isShoot";
 
-    private void Awake()
+    void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    void Update()
     {
         animator.SetBool(IS_WALK, player.isWalk());
         animator.SetBool(IS_LEFT, player.isLeftWalk());
+        animator.SetBool(IS_SHOOT, true);
     }
 }
