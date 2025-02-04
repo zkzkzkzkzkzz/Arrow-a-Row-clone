@@ -103,4 +103,9 @@ public class Player : MonoBehaviour
     {
         return stats;
     }
+
+    public float GetArrowFireRate()
+    {
+        return 10f / stats.ArrowRate;
+    }
 }

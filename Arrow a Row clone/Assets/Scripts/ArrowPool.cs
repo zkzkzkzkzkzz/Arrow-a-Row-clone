@@ -5,11 +5,11 @@ using UnityEngine;
 public class ArrowPool : MonoBehaviour
 {
     [SerializeField] private GameObject arrowPref;
-    [SerializeField] private int poolSize = 10;
+    [SerializeField] private int poolSize = 20;
 
     private Queue<GameObject> arrowPool = new Queue<GameObject>();
 
-    private void Start()
+    void Start()
     {
         for (int i = 0; i < poolSize; ++i)
         {
