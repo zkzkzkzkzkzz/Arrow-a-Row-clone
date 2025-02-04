@@ -42,18 +42,28 @@ public class Bow : MonoBehaviour
 
     void ShootArrow()
     {
-        GameObject arrow = arrowPool.GetArrow();
-        arrow.transform.position = firePoint.position;
+        int arrowCnt = player.GetPlayerStats().ArrowCnt;
+        float range = player.GetPlayerStats().ArrowRange;
 
-        arrow.transform.rotation = Quaternion.Euler(90, 0, 0);
+        float spreadAngle = Mathf.Lerp(0.3f, 3f, arrowCnt / range);
+        float startAngle = -spreadAngle * (arrowCnt - 1) / 2;
 
-        Arrow arrowScript = arrow.GetComponent<Arrow>();
-        if ( arrowScript != null )
+        for (int i = 0; i < arrowCnt; ++i)
         {
-            arrowScript.SetStartPos(firePoint.position);
-        }
+            GameObject arrow = arrowPool.GetArrow();
+            arrow.transform.position = firePoint.position;
 
-        Rigidbody rb = arrow.GetComponent<Rigidbody>();
-        rb.velocity = Vector3.forward * player.GetPlayerStats().ArrowSpeed;
+            float angle = startAngle + (spreadAngle * i);
+            arrow.transform.rotation = Quaternion.Euler(90, angle, 0);
+
+            Arrow arrowScript = arrow.GetComponent<Arrow>();
+            if ( arrowScript != null )
+            {
+                arrowScript.SetStartPos(firePoint.position);
+            }
+
+            Rigidbody rb = arrow.GetComponent<Rigidbody>();
+            rb.velocity = Quaternion.Euler(0, angle, 0) * Vector3.forward * player.GetPlayerStats().ArrowSpeed;
+        }
     }
 }

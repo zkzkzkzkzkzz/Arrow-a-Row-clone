@@ -40,8 +40,15 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name + "과 충돌");
-        arrowPool.ReturnArrow(gameObject);
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log(other.name + "과 충돌");
+            arrowPool.ReturnArrow(gameObject);
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void SetStartPos(Vector3 pos)
