@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         if (rb == null)
             Debug.LogError("Rigidbody를 찾을 수 없습니다.");
 
-        SetPlayerStats(100, 3, 10, 10, 6, 10, 1, 8f, 12f, 4f, 10, 0);
+        //SetPlayerStats(100, 3, 10, 10, 6, 10, 1, 8f, 12f, 4f, 10, 0);
     }
 
 

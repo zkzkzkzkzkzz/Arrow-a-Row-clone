@@ -15,15 +15,17 @@ public class Bow : MonoBehaviour
         player = GetComponentInParent<Player>();
         arrowPool = FindObjectOfType<ArrowPool>();
 
-        nextFireTime = Time.time + player.GetArrowFireRate();
+        nextFireTime = 0f;
     }
 
     void Update()
     {
-        if (Time.time >= nextFireTime)
+        nextFireTime += Time.deltaTime;
+
+        if (nextFireTime >= player.GetArrowFireRate())
         {
+            nextFireTime = 0f;
             ShootArrow();
-            nextFireTime = Time.time + player.GetArrowFireRate();
         }
     }
 
