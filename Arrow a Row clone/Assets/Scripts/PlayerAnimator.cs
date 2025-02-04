@@ -14,6 +14,11 @@ public class PlayerAnimator : MonoBehaviour
     void Awake()
     {
         animator = GetComponent<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("animator를 찾을 수 없습니다.");
+        }
     }
 
     void Update()

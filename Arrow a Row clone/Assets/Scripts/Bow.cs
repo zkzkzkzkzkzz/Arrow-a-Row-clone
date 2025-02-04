@@ -13,7 +13,18 @@ public class Bow : MonoBehaviour
     void Start()
     {
         player = GetComponentInParent<Player>();
+
+        if (player == null )
+        {
+            Debug.LogError("플레이어를 찾을 수 없습니다.");
+        }
+
         arrowPool = FindObjectOfType<ArrowPool>();
+
+        if ( arrowPool == null )
+        {
+            Debug.LogError("arrowPool을 찾을 수 없습니다.");
+        }
 
         nextFireTime = 0f;
     }
@@ -35,6 +46,12 @@ public class Bow : MonoBehaviour
         arrow.transform.position = firePoint.position;
 
         arrow.transform.rotation = Quaternion.Euler(90, 0, 0);
+
+        Arrow arrowScript = arrow.GetComponent<Arrow>();
+        if ( arrowScript != null )
+        {
+            arrowScript.SetStartPos(firePoint.position);
+        }
 
         Rigidbody rb = arrow.GetComponent<Rigidbody>();
         rb.velocity = Vector3.forward * player.GetPlayerStats().ArrowSpeed;
