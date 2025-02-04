@@ -34,6 +34,7 @@ public class PlayerAnimator : MonoBehaviour
     public void UpdateShootAnimationSpeed()
     {
         float fireRate = player.GetPlayerStats().ArrowRate;
+        fireRate = Mathf.Clamp(fireRate, 0.1f, 50f);
         animator.SetFloat("AttackSpeed", fireRate / 10f);
     }
 }
