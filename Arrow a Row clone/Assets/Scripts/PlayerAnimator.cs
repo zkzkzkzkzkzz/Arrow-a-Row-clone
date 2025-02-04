@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -23,8 +24,16 @@ public class PlayerAnimator : MonoBehaviour
 
     void Update()
     {
+        UpdateShootAnimationSpeed();
         animator.SetBool(IS_WALK, player.isWalk());
         animator.SetBool(IS_LEFT, player.isLeftWalk());
         animator.SetBool(IS_SHOOT, true);
+    }
+
+
+    public void UpdateShootAnimationSpeed()
+    {
+        float fireRate = player.GetPlayerStats().ArrowRate;
+        animator.SetFloat("AttackSpeed", fireRate / 10f);
     }
 }
