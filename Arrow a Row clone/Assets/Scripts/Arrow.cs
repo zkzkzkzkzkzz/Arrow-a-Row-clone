@@ -5,14 +5,14 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     private Player player;
-    private ArrowPool arrowPool;
+    private ObjPool objPool;
 
     private Vector3 startPos; // 발사되는 순간의 위치
     private float range;
 
     void Start()
     {
-        arrowPool = FindObjectOfType<ArrowPool>();
+        objPool = FindObjectOfType<ObjPool>();
     }
 
     void OnEnable()
@@ -33,8 +33,7 @@ public class Arrow : MonoBehaviour
     {
         if (Vector3.Distance(startPos, transform.position) >= range)
         {
-            Debug.Log("최대 사정거리");
-            arrowPool.ReturnArrow(gameObject);
+            objPool.ReturnArrow(gameObject);
         }
     }
 
@@ -42,8 +41,7 @@ public class Arrow : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log(other.name + "과 충돌");
-            arrowPool.ReturnArrow(gameObject);
+            objPool.ReturnArrow(gameObject);
         }
         else
         {

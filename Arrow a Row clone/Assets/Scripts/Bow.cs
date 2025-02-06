@@ -6,7 +6,7 @@ public class Bow : MonoBehaviour
 {
     [SerializeField] private Transform firePoint; // 화살 발사 위치
     private Player player;
-    private ArrowPool arrowPool;
+    private ObjPool arrowPool;
 
     private float nextFireTime;
 
@@ -19,7 +19,7 @@ public class Bow : MonoBehaviour
             Debug.LogError("플레이어를 찾을 수 없습니다.");
         }
 
-        arrowPool = FindObjectOfType<ArrowPool>();
+        arrowPool = FindObjectOfType<ObjPool>();
 
         if ( arrowPool == null )
         {
