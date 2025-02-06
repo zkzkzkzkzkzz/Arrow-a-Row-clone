@@ -9,6 +9,11 @@ public class Player : MonoBehaviour
     private float moveInput;
     private bool isWalking;
     private bool isLeft;
+    private bool isBoard;
+
+    private Animator animator;
+
+    [SerializeField] private SwordBoard swordBoard;
 
     [System.Serializable]
     public struct PlayerStats
@@ -61,7 +66,12 @@ public class Player : MonoBehaviour
         if (rb == null)
             Debug.LogError("Rigidbody를 찾을 수 없습니다.");
 
-        //SetPlayerStats(100, 3, 10, 10, 6, 10, 1, 8f, 12f, 4f, 10, 0);
+        animator = GetComponent<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("애니메이터를 찾을 수 없습니다.");
+        }      
     }
 
 
@@ -98,6 +108,16 @@ public class Player : MonoBehaviour
         return isLeft;
     }
 
+    public void SetOnBoard(bool b)
+    {
+        isBoard = b;
+        animator.SetBool("isBoard", isBoard);
+    }
+
+    public bool isOnBoard()
+    {
+        return isBoard;
+    }
 
     public PlayerStats GetPlayerStats()
     {
