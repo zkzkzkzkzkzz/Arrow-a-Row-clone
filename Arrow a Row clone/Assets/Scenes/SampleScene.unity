@@ -1614,6 +1614,37 @@ MonoBehaviour:
   moveSpeed: 10
   resetPos: -50
   startPos: 50
+--- !u!1 &1787614870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1787614871}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1787614871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787614870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.00800827, y: -0.71213406, z: 0.7019059, w: 0.011364431}
+  m_LocalPosition: {x: 0, y: 1.3999239, z: -0.42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8517318225008665989}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790015556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,7 +1829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4fc4f8cb38d69f4c9e6cc997005dab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 841883604}
+  spawnPoint: {fileID: 1787614871}
   spawnRadius: 2
 --- !u!4 &1901920764
 Transform:
@@ -7166,6 +7197,7 @@ Transform:
   - {fileID: 757522410817844507}
   - {fileID: 5025445195795350202}
   - {fileID: 841883604}
+  - {fileID: 1787614871}
   - {fileID: 1901920764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7497,10 +7529,10 @@ MonoBehaviour:
     ArrowRange: 10
     ArrowCnt: 1
     SwordATK: 8
-    SwordRate: 12
+    SwordRate: 1
     SwordSpeed: 4
     SwordRange: 10
-    SwordCnt: 0
+    SwordCnt: 10
 --- !u!114 &9041054729893478210
 MonoBehaviour:
   m_ObjectHideFlags: 0

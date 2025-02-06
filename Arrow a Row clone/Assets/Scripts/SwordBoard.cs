@@ -30,8 +30,8 @@ public class SwordBoard : MonoBehaviour
 
     private void Update()
     {
-        if (!player.isOnBoard())
-            return;
+        //if (!player.isOnBoard())
+        //    return;
 
         nextSpawnTime += Time.deltaTime;
         if (nextSpawnTime >= player.GetPlayerStats().SwordRate && !isSpawn)
@@ -51,16 +51,16 @@ public class SwordBoard : MonoBehaviour
         {
             GameObject sword = objPool.GetSword();
 
-            Vector3 randomOffset = Random.insideUnitSphere * swordRange;
-            Vector3 spawnPos = spawnPoint.position + randomOffset;
+            Vector2 randomOffset = Random.insideUnitCircle;
+            Vector3 spawnPos = spawnPoint.position + new Vector3(randomOffset.x, 0, -randomOffset.y);
 
             sword.transform.position = spawnPos;
 
-            //Arrow arrowScript = arrow.GetComponent<Arrow>();
-            //if (arrowScript != null)
-            //{
-            //    arrowScript.SetStartPos(firePoint.position);
-            //}
+            Sword swordScript = sword.GetComponent<Sword>();
+            if (swordScript != null)
+            {
+                swordScript.Initialize(spawnPos);
+            }
         }
     }
 }

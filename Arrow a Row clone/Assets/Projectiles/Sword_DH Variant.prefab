@@ -13,8 +13,16 @@ PrefabInstance:
       value: Sword_DH Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4673611459674428, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673611459674428, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4673611459674428, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4673611459674428, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -63,5 +71,25 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1845237839428460, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6087293035759503667}
   m_SourcePrefab: {fileID: 100100000, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
+--- !u!1 &3472669252233123730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1845237839428460, guid: ab8ac2017bc4c9e40b484324e5ee20e7, type: 3}
+  m_PrefabInstance: {fileID: 3474501217491037438}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6087293035759503667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3472669252233123730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d07cdbb075219943b597370d4ece3f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
