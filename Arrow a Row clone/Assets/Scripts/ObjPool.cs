@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowPool : MonoBehaviour
+public class ObjPool : MonoBehaviour
 {
     [SerializeField] private GameObject arrowPref;
     [SerializeField] private int poolSize = 15;
