@@ -85,7 +85,6 @@ public class Sword : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Sword Ãæµ¹");
             objPool.ReturnSword(gameObject);
         }
     }

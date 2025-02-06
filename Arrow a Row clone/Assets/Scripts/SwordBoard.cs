@@ -50,7 +50,16 @@ public class SwordBoard : MonoBehaviour
             range = player.GetPlayerStats().SwordRange;
             DetectEnemy();
         }
+
+        ActiveSwords.RemoveAll(sword => sword == null || !sword.gameObject.activeSelf);
+
+        if (ActiveSwords.Count == 0)
+            isSpawn = false;
     }
+
+
+
+
 
     /// <summary>
     /// 플레이어 중심으로 감지 범위 내 적들을 검사하여 가장 가까운 적을 선택한 후,
