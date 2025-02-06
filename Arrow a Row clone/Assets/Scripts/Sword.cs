@@ -66,11 +66,18 @@ public class Sword : MonoBehaviour
             {
                 swordState = SwordState.TRACE;
             }
+
+            if (target != null && !target.gameObject.activeInHierarchy)
+            {
+                objPool.ReturnSword(gameObject);
+                return;
+            }
         }
         else
         {
-            if (!target.gameObject.activeInHierarchy)
+            if (target == null || !target.gameObject.activeInHierarchy)
             {
+                objPool.ReturnSword(gameObject);
                 return;
             }
 
