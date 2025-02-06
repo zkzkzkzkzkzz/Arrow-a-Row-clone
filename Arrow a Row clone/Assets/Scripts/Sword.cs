@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
-    // 플레이어의 스탯 정보
-    // 플레이어의 위치 정보? 보드의 위치 정보?
-
-
     // 상태 : 일반, 추적
     private enum SwordState { IDLE, TRACE };
     private SwordState swordState;
@@ -23,9 +19,7 @@ public class Sword : MonoBehaviour
     private float speed;
     private float damage;
     private float range;
-
-    private static List<Sword> ActiveSwords = new List<Sword>();
-
+    
     /// <summary>
     /// SwordBoard에서 검을 스폰할 때 호출하는 함수
     /// </summary>
@@ -42,7 +36,6 @@ public class Sword : MonoBehaviour
             playerPos = player.transform;
             speed = player.GetPlayerStats().SwordSpeed;
             damage = player.GetPlayerStats().SwordATK;
-            range = player.GetPlayerStats().SwordRange;
         }
         else
             Debug.LogError("플레이어를 찾을 수 없습니다.");
@@ -51,9 +44,6 @@ public class Sword : MonoBehaviour
         {
             relativePos = _SpawnPos - playerPos.position;
         }
-
-        if (!ActiveSwords.Contains(this))
-            ActiveSwords.Add(this);
     }
 
     private void Awake()
@@ -72,10 +62,36 @@ public class Sword : MonoBehaviour
                 transform.position = playerPos.position + relativePos;
             }
 
-            if (target == null)
+            if (target != null)
             {
-
+                swordState = SwordState.TRACE;
             }
         }
+        else
+        {
+            if (!target.gameObject.activeInHierarchy)
+            {
+                return;
+            }
+
+            Vector3 Dir = (target.position - transform.position).normalized;
+            Quaternion targetRot = Quaternion.LookRotation(Dir);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 360f * Time.deltaTime);
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("Sword 충돌");
+            objPool.ReturnSword(gameObject);
+        }
+    }
+
+    public void SetTarget(Transform _target)
+    {
+        target = _target;
     }
 }
