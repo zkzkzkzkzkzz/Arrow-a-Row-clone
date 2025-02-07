@@ -1958,6 +1958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6312512169844449219}
   - component: {fileID: 8799253209126104726}
+  - component: {fileID: 4600067505480786659}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -2003,6 +2004,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4600067505480786659
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688229120525518201}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.27, y: 1.3, z: 0.63}
+  m_Center: {x: 0, y: 0.64, z: -0.09}
 --- !u!1 &6709731536827613716
 GameObject:
   m_ObjectHideFlags: 0

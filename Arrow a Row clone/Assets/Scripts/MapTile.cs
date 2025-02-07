@@ -56,9 +56,9 @@ public class MapTile : MonoBehaviour
     /// </summary>
     public void SpawnMonster(int tileIdx)
     {
-        ClearMonsters();
+        ClearMonsters(); // 기존 타일에 몬스터가 남아있을 경우 풀로 반환
 
-        Debug.Log("monster소환");
+        // 몬스터 소환
         Vector3 SpawnPos = GetRandomSpawnPos();
         GameObject monster = monsterPool.GetMonster(false);
         monster.transform.position = SpawnPos;
@@ -67,7 +67,7 @@ public class MapTile : MonoBehaviour
 
         if (tileIdx == 5)
         {
-            Debug.Log("보스 소환");
+            // 보스 소환
             Vector3 BossSpawnPos = GetBossSpawnPos();
             GameObject Bossmonster = monsterPool.GetMonster(true);
             Bossmonster.transform.position = BossSpawnPos;
