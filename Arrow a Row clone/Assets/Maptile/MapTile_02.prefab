@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 930720773823183259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.38, y: 1.03, z: 5.91}
-  m_LocalScale: {x: 1.5006, y: 2.3607986, z: 25.70209}
+  m_LocalPosition: {x: -4.38, y: 0, z: 5.91}
+  m_LocalScale: {x: 1.5006, y: 5, z: 25.70209}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8112716887674576896}
@@ -862,8 +862,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fad9e144aebe647b1d27fbcb47adc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: {fileID: 6688229120525518201, guid: 654f068725b2ef9498521c9562ec6c9c, type: 3}
-  boss: {fileID: 6688229120525518201, guid: 654f068725b2ef9498521c9562ec6c9c, type: 3}
   leftCol: {fileID: 4024148411029858559}
   rightCol: {fileID: 4527687962608773932}
 --- !u!1 &4772335820487770692
@@ -1210,8 +1208,8 @@ Transform:
   m_GameObject: {fileID: 6016343437825411533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 1.03, z: 5.91}
-  m_LocalScale: {x: 1.5006, y: 2.3607986, z: 25.70209}
+  m_LocalPosition: {x: 4.5, y: 0, z: 5.91}
+  m_LocalScale: {x: 1.5006, y: 5, z: 25.70209}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8112716887674576896}
