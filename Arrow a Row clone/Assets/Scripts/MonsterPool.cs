@@ -7,7 +7,7 @@ public class MonsterPool : MonoBehaviour
     [SerializeField] private GameObject monsterPref;
     [SerializeField] private int monsterPoolSize = 5;
     [SerializeField] private GameObject bossPref;
-    [SerializeField] private int bossPoolSize = 1;
+    [SerializeField] private int bossPoolSize = 2;
 
     private Queue<GameObject> monsterPool = new Queue<GameObject>();
     private Queue<GameObject> bossPool = new Queue<GameObject>();
@@ -33,13 +33,23 @@ public class MonsterPool : MonoBehaviour
     {
         if (_isBoss)
         {
-            GameObject boss = bossPool.Dequeue();
+            GameObject boss = null;
+            if (bossPool.Count > 0)
+                boss = bossPool.Dequeue();
+            else
+                boss = Instantiate(bossPref);
+            
             boss.SetActive(true);
             return boss;
         }
         else
         {
-            GameObject monster = monsterPool.Dequeue();
+            GameObject monster = null;
+            if (monsterPool.Count > 0)
+                monster = monsterPool.Dequeue();
+            else
+                monster = Instantiate(monsterPref);
+
             monster.SetActive(true);
             return monster;
         }

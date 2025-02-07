@@ -15,6 +15,9 @@ public class MapTileMgr : MonoBehaviour
     private List<GameObject> activeTiles = new List<GameObject>();
     private Queue<GameObject> recyclePool = new Queue<GameObject>();
 
+    private int tileIdx = 0;
+    private int chapter = 1;
+
     private void Start()
     {
         // 초기 타일 생성
@@ -65,6 +68,8 @@ public class MapTileMgr : MonoBehaviour
         tile.transform.position = spawnPos;
 
         activeTiles.Add(tile);
+
+        SpawnMonsterOnTile(tile);
     }
 
     /// <summary>
@@ -91,5 +96,19 @@ public class MapTileMgr : MonoBehaviour
     {
         GameObject lastTile = activeTiles[activeTiles.Count - 1];
         return lastTile.transform.position.z < lastTileCheck.position.z;
+    }
+
+    private void SpawnMonsterOnTile(GameObject tile)
+    {
+        MapTile mapTile = tile.GetComponent<MapTile>();
+        if (mapTile != null)
+            mapTile.SpawnMonster(tileIdx);
+
+        ++tileIdx;
+        if (tileIdx >= 6)
+        {
+            tileIdx = 0;
+            ++chapter;
+        }
     }
 }
