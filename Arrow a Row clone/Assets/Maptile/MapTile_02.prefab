@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 2758708649881024671}
   - component: {fileID: 120490735243119701}
   - component: {fileID: 94148066710924886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cliff-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 9141943429997303643}
   - component: {fileID: 6429524350455800721}
   - component: {fileID: 8969662751234698360}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: blue-house_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2095,7 +2095,7 @@ GameObject:
   - component: {fileID: 5951688655305788586}
   - component: {fileID: 8465731583581206624}
   - component: {fileID: 3495479570920191541}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hill_009
   m_TagString: Untagged
   m_Icon: {fileID: 0}
