@@ -59,7 +59,6 @@ public class MapTileMgr : MonoBehaviour
             ++curChapter;
             recycleTileCnt = 0;
         }
-
     }
 
     private void SpawnTile()

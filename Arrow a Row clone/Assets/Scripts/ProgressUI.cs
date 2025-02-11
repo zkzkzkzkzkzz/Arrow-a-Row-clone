@@ -46,8 +46,6 @@ public class ProgressUI : MonoBehaviour
 
         float normalizedProgress = ((chapter - 1) * 6 + tileIdx) / (float)((totalChapter - 1) * 6);
         progressBar.value = normalizedProgress;
-
-        //Debug.Log("chapter: " + chapter + ", tileIdx: " + tileIdx + ", progressValue: " + progressBar.value);
     }
 
     private void CalculateBossIconPos()
