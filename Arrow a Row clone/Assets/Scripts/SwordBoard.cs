@@ -75,7 +75,7 @@ public class SwordBoard : MonoBehaviour
 
         foreach (Collider hit in hits)
         {
-            if (hit.CompareTag("Enemy"))
+            if (hit.CompareTag("Enemy") || hit.CompareTag("Boss"))
             {
                 float dist = Vector3.Distance(pos, hit.transform.position);
                 if (dist < minDist)
