@@ -54,7 +54,7 @@ public class MapTile : MonoBehaviour
     /// <summary>
     /// 타일 번호에 따라 몬스터 배치
     /// </summary>
-    public void SpawnMonster(int tileIdx)
+    public void SpawnMonster(int tileIdx, int chapter)
     {
         ClearMonsters(); // 기존 타일에 몬스터가 남아있을 경우 풀로 반환
 
@@ -65,6 +65,9 @@ public class MapTile : MonoBehaviour
         monster.transform.rotation = Quaternion.LookRotation(-transform.forward);
         monster.transform.SetParent(transform);
 
+        int hp = CalculateMonsterHP(tileIdx, chapter, false);
+        monster.GetComponent<Monster>().SetMonsterHP(hp);
+
         if (tileIdx == 5)
         {
             // 보스 소환
@@ -73,6 +76,9 @@ public class MapTile : MonoBehaviour
             Bossmonster.transform.position = BossSpawnPos;
             Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward);
             Bossmonster.transform.SetParent(transform);
+            
+            int bossHp = CalculateMonsterHP(tileIdx, chapter, true);
+            Bossmonster.GetComponent<Monster>().SetMonsterHP(bossHp);
         }
     }
 
@@ -99,5 +105,15 @@ public class MapTile : MonoBehaviour
         {
             monsterPool.ReturnMonster(boss[i].gameObject, true);
         }
+    }
+
+    private int CalculateMonsterHP(int tileIdx, int chapter, bool isBoss)
+    {
+        int baseHP = 50;
+
+        if (isBoss)
+            return baseHP + (chapter - 1) * tileIdx + 25 * tileIdx;
+        else
+            return baseHP + (chapter - 1) * tileIdx + 10 * tileIdx;
     }
 }

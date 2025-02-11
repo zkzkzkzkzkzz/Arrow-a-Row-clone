@@ -108,7 +108,7 @@ public class MapTileMgr : MonoBehaviour
 
         MapTile mapTile = tile.GetComponent<MapTile>();
         if (mapTile != null)
-            mapTile.SpawnMonster(tileIdx);
+            mapTile.SpawnMonster(tileIdx, chapter);
 
         ++tileIdx;
         if (tileIdx >= 6)
