@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    private Player player;
+
+    private void OnEnable()
+    {
+        player = FindObjectOfType<Player>();
+        if (player == null)
+            Debug.LogError("Monster에서 player를 찾을 수 없습니다.");
+    }
+
     [System.Serializable]
     public struct MonsterStats
     {
@@ -24,5 +33,14 @@ public class Monster : MonoBehaviour
     public int GetMonsterHP()
     {
         return stats.HP;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            int damage = GetMonsterHP();
+            player.TakeDamage(damage);
+        }
     }
 }

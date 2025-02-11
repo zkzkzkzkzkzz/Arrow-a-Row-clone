@@ -128,4 +128,9 @@ public class Player : MonoBehaviour
     {
         return 10f / stats.ArrowRate;
     }
+
+    public void TakeDamage(int damage)
+    {
+        stats.HP -= damage;
+    }
 }
