@@ -8,13 +8,9 @@ public class ProgressUI : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private Slider progressBar;
     [SerializeField] private RectTransform playerIcon;
-    //[SerializeField] private Transform bossContainer;
-    //[SerializeField] private GameObject bossIconPref;
+    [SerializeField] private List<RectTransform> bossIcons;
 
-    [Header("Boss Sprites")]
-    //[SerializeField] private Sprite firstBoss;
-    //[SerializeField] private Sprite finalBoss;
-    //[SerializeField] private Sprite normalBoss;
+    [SerializeField] private List<Vector2> bossIconPos = new List<Vector2>();
 
     private int totalChapter = 14;
     private MapTileMgr mapTileMgr;
@@ -30,6 +26,9 @@ public class ProgressUI : MonoBehaviour
             Debug.LogError("ProgressUI에서 MapTileMgr을 찾을 수 없습니다.");
 
         UpdateProgress();
+
+        CalculateBossIconPos();
+        UpdateBossIconPos();
     }
 
     private void Update()
@@ -48,6 +47,42 @@ public class ProgressUI : MonoBehaviour
         float normalizedProgress = ((chapter - 1) * 6 + tileIdx) / (float)((totalChapter - 1) * 6);
         progressBar.value = normalizedProgress;
 
-        Debug.Log("chapter: " + chapter + ", tileIdx: " + tileIdx + ", progressValue: " + progressBar.value);
+        //Debug.Log("chapter: " + chapter + ", tileIdx: " + tileIdx + ", progressValue: " + progressBar.value);
+    }
+
+    private void CalculateBossIconPos()
+    {
+        List<(int chapter, int tileIdx)> bossTiles = new List<(int, int)>
+        {
+            (1, 5), // 첫 번째 보스
+            (4, 5),
+            (7, 5),
+            (10, 5),
+            (14, 5) // 최종 보스
+        };
+
+        for (int i = 0; i < bossTiles.Count; ++i)
+        {
+            int chapter = bossTiles[i].chapter;
+            int tileIdx = bossTiles[i].tileIdx;
+
+            float normalizedProgress = Mathf.Clamp(((chapter - 1) * 6 + tileIdx) / (float)((totalChapter - 1) * 6), 0f, 1f);
+            bossIconPos.Add(new Vector2(0, normalizedProgress));
+        }
+    }
+
+    private void UpdateBossIconPos()
+    {
+        RectTransform handleArea = progressBar.handleRect.parent.GetComponent<RectTransform>();
+        float handleWidth = handleArea.rect.width;
+
+        for (int i = 0; i < bossIcons.Count; ++i)
+        {
+            float normalizedValue = bossIconPos[i].y;
+
+            float targetX = Mathf.Lerp(-handleWidth / 2f, handleWidth / 2f, normalizedValue);
+
+            bossIcons[i].anchoredPosition = new Vector2(targetX, bossIcons[i].anchoredPosition.y);
+        }
     }
 }
