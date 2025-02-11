@@ -62,7 +62,7 @@ public class MapTile : MonoBehaviour
         Vector3 SpawnPos = GetRandomSpawnPos();
         GameObject monster = monsterPool.GetMonster(false);
         monster.transform.position = SpawnPos;
-        monster.transform.rotation = Quaternion.LookRotation(-transform.forward);
+        monster.transform.rotation = Quaternion.LookRotation(-transform.forward, Vector3.up);
         monster.transform.SetParent(transform);
 
         int hp = CalculateMonsterHP(tileIdx, chapter, false);
@@ -74,7 +74,7 @@ public class MapTile : MonoBehaviour
             Vector3 BossSpawnPos = GetBossSpawnPos();
             GameObject Bossmonster = monsterPool.GetMonster(true);
             Bossmonster.transform.position = BossSpawnPos;
-            Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward);
+            Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward, Vector3.up);
             Bossmonster.transform.SetParent(transform);
             
             int bossHp = CalculateMonsterHP(tileIdx, chapter, true);
