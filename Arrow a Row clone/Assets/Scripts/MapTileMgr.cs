@@ -101,7 +101,10 @@ public class MapTileMgr : MonoBehaviour
     private void SpawnMonsterOnTile(GameObject tile)
     {
         if (tileIdx == 0 && chapter == 1)
+        {
+            ++tileIdx;
             return;
+        }
 
         MapTile mapTile = tile.GetComponent<MapTile>();
         if (mapTile != null)
