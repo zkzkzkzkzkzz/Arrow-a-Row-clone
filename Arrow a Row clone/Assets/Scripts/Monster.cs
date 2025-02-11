@@ -5,6 +5,14 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     private Player player;
+    private MonsterPool monsterPool;
+
+    private void Start()
+    {
+        monsterPool = FindObjectOfType<MonsterPool>();
+        if (monsterPool == null)
+            Debug.LogError("Monster에서 monsterPool을 찾을 수 없습니다.");
+    }
 
     private void OnEnable()
     {
@@ -35,12 +43,22 @@ public class Monster : MonoBehaviour
         return stats.HP;
     }
 
+    public void TakeDamage(int damage)
+    {
+        int curHP = GetMonsterHP();
+        if (curHP - damage <= 0)
+            monsterPool.ReturnMonster(gameObject, stats.isBoss);
+        else
+            SetMonsterHP(curHP - damage);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             int damage = GetMonsterHP();
             player.TakeDamage(damage);
+            monsterPool.ReturnMonster(gameObject, stats.isBoss);
         }
     }
 }

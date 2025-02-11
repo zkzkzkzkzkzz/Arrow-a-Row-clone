@@ -39,8 +39,10 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        Debug.Log("화살 트리거 호출");
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            other.GetComponent<Monster>().TakeDamage(player.GetPlayerStats().ArrowATK);
             objPool.ReturnArrow(gameObject);
         }
         else
