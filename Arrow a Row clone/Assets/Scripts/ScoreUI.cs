@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScoreUI : MonoBehaviour
@@ -8,7 +9,7 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
 
     private float curScore = 0;
-    private int scoreSpeed = 2;
+    [SerializeField] private int scoreSpeed = 3;
 
     private void Start()
     {
