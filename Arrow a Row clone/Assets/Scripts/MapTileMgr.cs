@@ -159,4 +159,14 @@ public class MapTileMgr : MonoBehaviour
     {
         return curChapter;
     }
+
+    public float GetTileSpeed()
+    {
+        return tileSpeed;
+    }
+
+    public void SetTileSpeed(float speed)
+    {
+        tileSpeed = speed;
+    }
 }
