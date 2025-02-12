@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -132,5 +133,50 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         stats.HP -= damage;
+    }
+
+    public void increaseStat(StatType statType, float value)
+    {
+        switch (statType)
+        {
+            case StatType.HP:
+                stats.HP += (int)value;
+                break;
+            case StatType.MOVESPEED:
+                stats.moveSpeed += value;
+                break;
+            case StatType.ARROWATK:
+                stats.ArrowATK += (int)value;
+                break;
+            case StatType.ARROWRATE:
+                stats.ArrowRate += (int)value;
+                break;
+            case StatType.ARROWSPEED:
+                stats.ArrowSpeed += (int)value;
+                break;
+            case StatType.ARROWRANGE:
+                stats.ArrowRange += (int)value;
+                break;
+            case StatType.ARROWCNT:
+                stats.ArrowCnt += (int)value;
+                break;
+            case StatType.SWORDATK:
+                stats.SwordATK += value;
+                break;
+            case StatType.SWORDRATE:
+                stats.SwordRate -= value;
+                break;
+            case StatType.SWORDSPEED:
+                stats.SwordSpeed += value;
+                break;
+            case StatType.SWORDRANGE:
+                stats.SwordRange += (int)value;
+                break;
+            case StatType.SWORDCNT:
+                stats.SwordCnt += (int)value;
+                break;
+            default:
+                break;
+        }
     }
 }

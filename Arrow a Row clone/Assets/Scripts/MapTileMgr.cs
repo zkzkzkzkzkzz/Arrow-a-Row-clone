@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class MapTileMgr : MonoBehaviour
@@ -43,7 +44,7 @@ public class MapTileMgr : MonoBehaviour
         UpdatePlayerTileIdx();
 
         if (activeTiles.Count == 0 || isNeedNewTile())
-        {
+        {            
             SpawnTile();
         }
     }
@@ -87,6 +88,8 @@ public class MapTileMgr : MonoBehaviour
         activeTiles.Add(tile);
 
         SpawnMonsterOnTile(tile);
+
+        tile.GetComponent<GateSpawner>().SpawnGate();
     }
 
     /// <summary>
