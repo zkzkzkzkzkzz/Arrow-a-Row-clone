@@ -8,7 +8,7 @@ public class ProgressUI : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private Slider progressBar;
     [SerializeField] private RectTransform playerIcon;
-    [SerializeField] private List<RectTransform> bossIcons;
+    [SerializeField] private List<Image> bossIcons;
 
     [SerializeField] private List<Vector2> bossIconPos = new List<Vector2>();
 
@@ -34,6 +34,7 @@ public class ProgressUI : MonoBehaviour
     private void Update()
     {
         UpdateProgress();
+        CheckBossIcon();
     }
 
     private void UpdateProgress()
@@ -80,7 +81,21 @@ public class ProgressUI : MonoBehaviour
 
             float targetX = Mathf.Lerp(-handleWidth / 2f, handleWidth / 2f, normalizedValue);
 
-            bossIcons[i].anchoredPosition = new Vector2(targetX, bossIcons[i].anchoredPosition.y);
+            bossIcons[i].rectTransform.anchoredPosition = new Vector2(targetX, bossIcons[i].rectTransform.anchoredPosition.y);
+        }
+    }
+
+    /// <summary>
+    /// 플레이어가 해당 보스를 잡았는지 판별하여 색상으로 구분
+    /// </summary>
+    private void CheckBossIcon()
+    {
+        float curProgress = progressBar.value;
+
+        for (int i = 0; i < bossIcons.Count; ++i)
+        {
+            if (curProgress > bossIconPos[i].y)
+                bossIcons[i].color = Color.gray;
         }
     }
 }
