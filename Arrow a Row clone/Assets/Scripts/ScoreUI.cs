@@ -11,7 +11,7 @@ public class ScoreUI : MonoBehaviour
     private MapTileMgr mapTileMgr;
 
     private float curScore = 0;
-    private float scoreSpeed = 3;
+    private float scoreSpeed;
 
     private void Start()
     {
