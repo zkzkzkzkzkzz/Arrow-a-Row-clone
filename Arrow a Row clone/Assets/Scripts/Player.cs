@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
     private Rigidbody rb;
     private float moveInput;
     private bool isWalking;
@@ -96,7 +95,7 @@ public class Player : MonoBehaviour
         if (rb == null)
             return;
 
-        rb.velocity = new Vector3(moveInput * moveSpeed, rb.velocity.y, 0);
+        rb.velocity = new Vector3(moveInput * stats.moveSpeed, rb.velocity.y, 0);
     }
 
     public bool isWalk()
