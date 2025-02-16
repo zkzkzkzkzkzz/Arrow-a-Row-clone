@@ -7669,7 +7669,7 @@ MonoBehaviour:
   swordBoard: {fileID: 1901920763}
   stats:
     HP: 100
-    moveSpeed: 3
+    moveSpeed: 50
     ArrowATK: 10
     ArrowRate: 10
     ArrowSpeed: 6
