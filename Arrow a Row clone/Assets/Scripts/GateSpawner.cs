@@ -9,6 +9,8 @@ public class GateSpawner : MonoBehaviour
     [SerializeField] private Transform leftSpawn;
     [SerializeField] private Transform rightSpawn;
 
+    private GameObject leftGate, rightGate;
+
     private void Awake()
     {
         gatePool = FindObjectOfType<GatePool>();
@@ -23,20 +25,20 @@ public class GateSpawner : MonoBehaviour
         StatType leftStat = GetRandomStat();
         StatType rightStat = GetRandomStat();
 
-        GameObject leftGate = gatePool.GetGate();
-        leftGate.transform.position = leftSpawn.position;
-        leftGate.GetComponent<StatGate>().statType = leftStat;
-        leftGate.transform.SetParent(transform);
-        float lvalue = leftGate.GetComponent<StatGate>().getValue();
-        leftGate.GetComponentInChildren<TextMeshPro>().text = leftStat.ToString() + " +" + ((int)lvalue).ToString();
+        leftGate = CreateGate(leftSpawn.position, leftStat);
+        rightGate = CreateGate(rightSpawn.position, rightStat);
+    }
 
+    private GameObject CreateGate(Vector3 pos, StatType statType)
+    {
+        GameObject gate = gatePool.GetGate();
+        gate .transform.position = leftSpawn.position;
+        gate .GetComponent<StatGate>().statType = statType;
+        gate.transform.SetParent(transform);
+        float value = gate.GetComponent<StatGate>().getValue();
+        gate.GetComponentInChildren<TextMeshPro>().text = statType.ToString() + " +" + ((int)value).ToString();
 
-        GameObject rightGate = gatePool.GetGate();
-        rightGate.transform.position = rightSpawn.position;
-        rightGate.GetComponent<StatGate>().statType = rightStat;
-        rightGate.transform.SetParent(transform);
-        float rvalue = rightGate.GetComponent<StatGate>().getValue();
-        rightGate.GetComponentInChildren<TextMeshPro>().text = rightStat.ToString() + " +" + ((int)rvalue).ToString();
+        return gate;
     }
 
     private void ClearGates()
