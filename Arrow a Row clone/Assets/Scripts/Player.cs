@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
                 stats.SwordATK += value;
                 break;
             case StatType.SWORDRATE:
-                stats.SwordRate -= value;
+                stats.SwordRate *= (1 - (value / 100f));
                 break;
             case StatType.SWORDSPEED:
                 stats.SwordSpeed += value;
