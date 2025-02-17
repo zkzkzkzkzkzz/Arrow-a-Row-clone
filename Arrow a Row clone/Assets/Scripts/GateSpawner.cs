@@ -10,6 +10,7 @@ public class GateSpawner : MonoBehaviour
     [SerializeField] private Transform rightSpawn;
 
     private GameObject leftGate, rightGate;
+    private bool isTrigger = false;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class GateSpawner : MonoBehaviour
     public void SpawnGate()
     {
         ClearGates();
+        isTrigger = false;
 
         StatType leftStat = GetRandomStat();
         StatType rightStat = GetRandomStat();
@@ -32,8 +34,8 @@ public class GateSpawner : MonoBehaviour
     private GameObject CreateGate(Vector3 pos, StatType statType)
     {
         GameObject gate = gatePool.GetGate();
-        gate .transform.position = leftSpawn.position;
-        gate .GetComponent<StatGate>().statType = statType;
+        gate.transform.position = pos;
+        gate.GetComponent<StatGate>().GateInit(this, statType);
         gate.transform.SetParent(transform);
         float value = gate.GetComponent<StatGate>().getValue();
         gate.GetComponentInChildren<TextMeshPro>().text = statType.ToString() + " +" + ((int)value).ToString();
@@ -55,6 +57,16 @@ public class GateSpawner : MonoBehaviour
         {
             gatePool.ReturnGate(gates[i].gameObject);
         }
+    }
+
+    public bool IsTrigger()
+    {
+        return isTrigger;
+    }
+
+    public void SetTrigger(bool b)
+    {
+        isTrigger = b;
     }
 
     /// <summary>

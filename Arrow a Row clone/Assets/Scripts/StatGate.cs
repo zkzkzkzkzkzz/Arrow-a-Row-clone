@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class StatGate : MonoBehaviour
 {
+    private GateSpawner spawner;
     private GatePool gatePool;
     public StatType statType;
     private bool isTriggered = false;
@@ -17,9 +18,15 @@ public class StatGate : MonoBehaviour
             Debug.LogError("StatGate에서 gatePool을 찾을 수 없습니다.");
     }
 
+    public void GateInit(GateSpawner gateSpawner, StatType type)
+    {
+        spawner = gateSpawner;
+        statType = type;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player") || spawner.IsTrigger())
             return;
 
         Player player = other.GetComponent<Player>();
@@ -28,6 +35,7 @@ public class StatGate : MonoBehaviour
             player.increaseStat(statType, value);
 
         gatePool.ReturnGate(gameObject);
+        spawner.SetTrigger(true);
     }
 
     public float getValue()
