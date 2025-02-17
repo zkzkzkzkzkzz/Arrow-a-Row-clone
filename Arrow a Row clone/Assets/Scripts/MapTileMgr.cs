@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
+using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class MapTileMgr : MonoBehaviour
@@ -18,6 +20,10 @@ public class MapTileMgr : MonoBehaviour
     private int tileIdx = 0;
     private int chapter = 1;
 
+    private int curTileIdx = 0;
+    private int curChapter = 1;
+    private int recycleTileCnt = 0;
+
     private void Start()
     {
         // 초기 타일 생성
@@ -35,14 +41,26 @@ public class MapTileMgr : MonoBehaviour
         }
 
         CheckTiles();
+        UpdatePlayerTileIdx();
 
         if (activeTiles.Count == 0 || isNeedNewTile())
-        {
+        {            
             SpawnTile();
         }
     }
 
-
+    /// <summary>
+    /// 플레이어가 현재 몇 번째 챕터의 몇 번 인덱스 타일을 밟고 있는지 계산
+    /// </summary>
+    private void UpdatePlayerTileIdx()
+    {
+        curTileIdx = recycleTileCnt % 6;
+        if (recycleTileCnt >= 6)
+        {
+            ++curChapter;
+            recycleTileCnt = 0;
+        }
+    }
 
     private void SpawnTile()
     {
@@ -70,6 +88,8 @@ public class MapTileMgr : MonoBehaviour
         activeTiles.Add(tile);
 
         SpawnMonsterOnTile(tile);
+
+        tile.GetComponent<GateSpawner>().SpawnGate();
     }
 
     /// <summary>
@@ -83,6 +103,7 @@ public class MapTileMgr : MonoBehaviour
             GameObject tile = activeTiles[0];
             if (tile.transform.position.z <= recycleZ)
             {
+                ++recycleTileCnt;
                 tile.SetActive(false);
                 activeTiles.RemoveAt(0);
                 recyclePool.Enqueue(tile);
@@ -116,5 +137,39 @@ public class MapTileMgr : MonoBehaviour
             tileIdx = 0;
             ++chapter;
         }
+    }
+
+    public int GetTileIdx()
+    {
+        return tileIdx;
+    }
+
+    public int GetChapter()
+    {
+        return chapter;
+    }
+
+
+    /// <summary>
+    /// 플레이어가 현재 밟고 있는 타일이 몇 챕터의 몇 번 인덱스인지 반환
+    /// </summary>
+    /// <returns></returns>
+    public int GetPlayerTileIdx()
+    {
+        return curTileIdx;
+    }
+    public int getPlayerChapter()
+    {
+        return curChapter;
+    }
+
+    public float GetTileSpeed()
+    {
+        return tileSpeed;
+    }
+
+    public void SetTileSpeed(float speed)
+    {
+        tileSpeed = speed;
     }
 }

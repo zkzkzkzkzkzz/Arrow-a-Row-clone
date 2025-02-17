@@ -92,6 +92,7 @@ public class Sword : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
+            other.GetComponent<Monster>().TakeDamage((int)player.GetPlayerStats().SwordATK);
             objPool.ReturnSword(gameObject);
         }
     }

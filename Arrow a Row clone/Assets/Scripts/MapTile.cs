@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MapTile : MonoBehaviour
@@ -8,12 +9,17 @@ public class MapTile : MonoBehaviour
     [SerializeField] private Transform rightCol;
 
     private MonsterPool monsterPool;
+    private GateSpawner gateSpawner;
 
     private void Awake()
     {
         monsterPool = FindObjectOfType<MonsterPool>();
         if (monsterPool == null)
             Debug.LogError("monsterPool을 찾을 수 없습니다.");
+
+        gateSpawner = GetComponentInChildren<GateSpawner>();
+        if (gateSpawner == null)
+            Debug.LogError("mapTile에서 gateSpawner를 찾을 수 없습니다.");
     }
 
 
@@ -46,7 +52,7 @@ public class MapTile : MonoBehaviour
 
         float x = 0f;
         float y = -0.3f;
-        float z = minPos.z + 12f;
+        float z = minPos.z + 6f;
 
         return new Vector3(x, y, z);
     }
@@ -62,7 +68,7 @@ public class MapTile : MonoBehaviour
         Vector3 SpawnPos = GetRandomSpawnPos();
         GameObject monster = monsterPool.GetMonster(false);
         monster.transform.position = SpawnPos;
-        monster.transform.rotation = Quaternion.LookRotation(-transform.forward, Vector3.up);
+        monster.transform.rotation = Quaternion.LookRotation(-transform.forward);
         monster.transform.SetParent(transform);
 
         int hp = CalculateMonsterHP(tileIdx, chapter, false);
@@ -74,7 +80,7 @@ public class MapTile : MonoBehaviour
             Vector3 BossSpawnPos = GetBossSpawnPos();
             GameObject Bossmonster = monsterPool.GetMonster(true);
             Bossmonster.transform.position = BossSpawnPos;
-            Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward, Vector3.up);
+            Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward);
             Bossmonster.transform.SetParent(transform);
             
             int bossHp = CalculateMonsterHP(tileIdx, chapter, true);
@@ -115,5 +121,10 @@ public class MapTile : MonoBehaviour
             return baseHP + (chapter - 1) * tileIdx + 25 * tileIdx;
         else
             return baseHP + (chapter - 1) * tileIdx + 10 * tileIdx;
+    }
+
+    public GateSpawner GetGateSpawner()
+    {
+        return gateSpawner;
     }
 }
