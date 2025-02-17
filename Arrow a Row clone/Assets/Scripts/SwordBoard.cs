@@ -5,7 +5,6 @@ using UnityEngine;
 public class SwordBoard : MonoBehaviour
 {
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private float spawnRadius = 2f;
 
     private Player player;
     private ObjPool objPool;
