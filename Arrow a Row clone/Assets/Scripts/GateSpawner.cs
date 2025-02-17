@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -24,8 +25,8 @@ public class GateSpawner : MonoBehaviour
         ClearGates();
         isTrigger = false;
 
-        StatType leftStat = GetRandomStat();
-        StatType rightStat = GetRandomStat();
+        StatType leftStat = GetRandomGateStat();
+        StatType rightStat = GetRandomGateStat();
 
         leftGate = CreateGate(leftSpawn.position, leftStat);
         rightGate = CreateGate(rightSpawn.position, rightStat);
@@ -35,10 +36,25 @@ public class GateSpawner : MonoBehaviour
     {
         GameObject gate = gatePool.GetGate();
         gate.transform.position = pos;
-        gate.GetComponent<StatGate>().GateInit(this, statType);
+
+        int tileIdx = 0, chapter = 0;
+        MapTileMgr tileMgr = FindAnyObjectByType<MapTileMgr>();
+        if (tileMgr != null)
+        {
+            tileIdx = tileMgr.GetTileIdx();
+            chapter = tileMgr.GetChapter();
+        }
+
+        gate.GetComponent<StatGate>().GateInit(this, statType, tileIdx, chapter);
         gate.transform.SetParent(transform);
         float value = gate.GetComponent<StatGate>().getValue();
-        gate.GetComponentInChildren<TextMeshPro>().text = statType.ToString() + " +" + ((int)value).ToString();
+
+        if (statType == StatType.SWORDATK)
+            gate.GetComponentInChildren<TextMeshPro>().text = statType.GetStatName() + "\n+" + value.ToString("F1");
+        else if (statType == StatType.SWORDRATE)
+            gate.GetComponentInChildren<TextMeshPro>().text = statType.GetStatName() + "\n-" + ((int)value).ToString() + "%";
+        else
+            gate.GetComponentInChildren<TextMeshPro>().text = statType.GetStatName() + "\n+" + ((int)value).ToString();
 
         return gate;
     }
@@ -73,9 +89,12 @@ public class GateSpawner : MonoBehaviour
     /// 관문 선택지용 함수
     /// </summary>
     /// <returns></returns>
-    private StatType GetRandomStat()
+    private StatType GetRandomGateStat()
     {
-        StatType[] statTypes = (StatType[])System.Enum.GetValues(typeof(StatType));
-        return statTypes[Random.Range(0, statTypes.Length)];
+        StatType[] validStats = System.Enum.GetValues(typeof(StatType)).Cast<StatType>()
+                                .Where(stat => stat.CanBeAppliedInGate())
+                                .ToArray();
+
+        return validStats[Random.Range(0, validStats.Length)];
     }
 }
