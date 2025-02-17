@@ -8,7 +8,6 @@ public class StatGate : MonoBehaviour
     private GateSpawner spawner;
     private GatePool gatePool;
     public StatType statType;
-    private bool isTriggered = false;
     private float value = 1;
 
     private void Start()
@@ -51,51 +50,34 @@ public class StatGate : MonoBehaviour
         switch (type)
         {
             case StatType.HP:
-                res = (Random.Range(10f, 30f) + tileIdx) * chapter;
+                res = (Random.Range(10, 31) + tileIdx) * chapter * 2;
                 break;
             case StatType.MOVESPEED:
-                res = (float)Random.Range(1, 3);
-                break;
             case StatType.ARROWATK:
-                res = (float)Random.Range(1, 3);
-                break;
             case StatType.ARROWRATE:
-                res = (float)Random.Range(1, 3);
-                break;
             case StatType.ARROWSPEED:
-                res = (float)Random.Range(1, 3);
-                break;
             case StatType.ARROWRANGE:
-                res = (float)Random.Range(1, 3);
-                break;
             case StatType.ARROWCNT:
-                res = (float)Random.Range(1, 3);
+            case StatType.SWORDSPEED:
+            case StatType.SWORDRANGE:
+            case StatType.SWORDCNT:
+                res = (float)WeightedRandom(1, 2, 0.9f);
                 break;
             case StatType.SWORDATK:
-                int tempATK = Random.Range(1, 3);
-                res = (float)tempATK / 2f;
+                res = (float)WeightedRandom(1, 2, 0.9f) / 2f; 
                 break;
             case StatType.SWORDRATE:
-                int tempRate = Random.Range(1, 3);
-
-                if (tempRate == 1)
-                    res = 5f;
-                else
-                    res = 10f;
-                break;
-            case StatType.SWORDSPEED:
-                res = (float)Random.Range(1, 3);
-                break;
-            case StatType.SWORDRANGE:
-                res = (float)Random.Range(1, 3);
-                break;
-            case StatType.SWORDCNT:
-                res = (float)Random.Range(1, 3);
+                res = (float)WeightedRandom(1, 2, 0.9f) * 5f;
                 break;
             default:
                 break;
         }
 
         return res;
+    }
+
+    private int WeightedRandom(int v1, int v2, float fvalue)
+    {
+        return Random.value < fvalue ? v1 : v2;
     }
 }
