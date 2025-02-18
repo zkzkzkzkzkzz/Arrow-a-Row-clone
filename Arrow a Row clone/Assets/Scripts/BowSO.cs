@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -16,6 +17,29 @@ public class StatBonus
     }
 }
 
+[System.Serializable]
+public class StatBonusList : IEnumerable<StatBonus>
+{
+    public List<StatBonus> statBonus = new List<StatBonus>();
+    
+    public StatBonusList(params StatBonus[] stats)
+    {
+        statBonus.AddRange(stats);
+    }
+
+    public IEnumerator<StatBonus> GetEnumerator()
+    {
+        return statBonus.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+    public int Count => statBonus.Count;
+}
+
 public enum BowType
 {
     Normal,
@@ -24,6 +48,7 @@ public enum BowType
     Purple,
 }
 
+[CreateAssetMenu()]
 public class BowSO : ScriptableObject
 {
     [Header("기본 활 정보")]
@@ -32,6 +57,6 @@ public class BowSO : ScriptableObject
     public Sprite sprite;
 
     [Header("업그레이드 정보")]
-    public List<Material> materials;                        // 업그레이드 단계별 머테리얼
-    public Dictionary<int, List<StatBonus>> upgradeStats;   // 레벨별 스탯 증가량
+    public Material materials;                  // 업그레이드 단계별 머테리얼
+    public List<StatBonusList> StatBonusList;   // 레벨별 스탯 증가량
 }

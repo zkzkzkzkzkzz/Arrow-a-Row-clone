@@ -38,6 +38,9 @@ public class Bow : MonoBehaviour
             nextFireTime = 0f;
             ShootArrow();
         }
+
+        if (player.IsChangeBow())
+            ChangeBowMaterial();
     }
 
     void ShootArrow()
@@ -65,5 +68,18 @@ public class Bow : MonoBehaviour
             Rigidbody rb = arrow.GetComponent<Rigidbody>();
             rb.velocity = Quaternion.Euler(0, angle, 0) * Vector3.forward * player.GetPlayerStats().ArrowSpeed;
         }
+    }
+
+    /// <summary>
+    /// 활 업그레이드 시 머테리얼 변경
+    /// </summary>
+    private void ChangeBowMaterial()
+    {
+        Material mat = player.GetCurBowMaterial();
+
+        Renderer rend = GetComponentInChildren<Renderer>();
+
+        if (rend != null)
+            rend.material = mat;
     }
 }

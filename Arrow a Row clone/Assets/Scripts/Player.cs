@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,8 +16,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private SwordBoard swordBoard;
 
+    [SerializeField] List<BowSO> BowList;
     private BowSO curBow;
     private int bowLV = 0;
+    private bool isChangeBow = false;
 
     [System.Serializable]
     public struct PlayerStats
@@ -74,7 +77,13 @@ public class Player : MonoBehaviour
         if (animator == null)
         {
             Debug.LogError("애니메이터를 찾을 수 없습니다.");
-        }      
+        }
+
+        if (BowList.Count > 0)
+        {
+            curBow = BowList[0];
+            ApplyBowStats();
+        }
     }
 
 
@@ -90,7 +99,7 @@ public class Player : MonoBehaviour
         else
             isLeft = false;
 
-        //Debug.Log($"isWalking : {isWalking}, isLeft : {isLeft}");
+        isChangeBow = false;
     }
 
     void FixedUpdate()
@@ -152,6 +161,8 @@ public class Player : MonoBehaviour
                 break;
             case StatType.ARROWRATE:
                 stats.ArrowRate += (int)value;
+                if (stats.ArrowRate <= 0)
+                    stats.ArrowRate = 1;
                 break;
             case StatType.ARROWSPEED:
                 stats.ArrowSpeed += (int)value;
@@ -199,10 +210,44 @@ public class Player : MonoBehaviour
 
     private void ApplyBowStats()
     {
-        if (curBow.upgradeStats.ContainsKey(bowLV))
+        if (curBow.StatBonusList.Count > 0)
         {
-            foreach (var stat in curBow.upgradeStats[bowLV])
+            foreach (var stat in curBow.StatBonusList[bowLV - 1])
                 increaseStat(stat.statType, stat.value);
         }
+    }
+
+    /// <summary>
+    /// 디버그용 활 변경
+    /// </summary>
+    public void ChangeBow()
+    {
+        int curIdx = BowList.IndexOf(curBow);
+        int nextIdx = (curIdx + 1) % BowList.Count;
+        curBow = BowList[nextIdx];
+
+        bowLV = 1;
+        isChangeBow = true;
+        ApplyBowStats();
+
+        Debug.Log($" 활 변경: {curBow.bowName} (Lv. {bowLV})");
+    }
+
+    public void ChangeBowLV(int lv)
+    {
+        bowLV = Mathf.Clamp(bowLV + lv, 1, 4);
+        ApplyBowStats();
+
+        Debug.Log($" 활 레벨 변경: {curBow.bowName} (Lv. {bowLV})");
+    }
+
+    public Material GetCurBowMaterial()
+    {
+        return curBow.materials;
+    }
+
+    public bool IsChangeBow()
+    {
+        return isChangeBow;
     }
 }
