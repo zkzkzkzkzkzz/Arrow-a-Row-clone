@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private SwordBoard swordBoard;
 
+    private BowSO curBow;
+    private int bowLV = 0;
+
     [System.Serializable]
     public struct PlayerStats
     {
@@ -176,6 +179,30 @@ public class Player : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    /// <summary>
+    /// 활 선택 관련 함수
+    /// </summary>
+    public void SelectBow(BowSO selectedBow)
+    {
+        curBow = selectedBow;
+        bowLV = 1;
+    }
+
+    public void UpgradeBow(BowSO nextBow)
+    {
+        curBow = nextBow;
+        ++bowLV;
+    }
+
+    private void ApplyBowStats()
+    {
+        if (curBow.upgradeStats.ContainsKey(bowLV))
+        {
+            foreach (var stat in curBow.upgradeStats[bowLV])
+                increaseStat(stat.statType, stat.value);
         }
     }
 }
