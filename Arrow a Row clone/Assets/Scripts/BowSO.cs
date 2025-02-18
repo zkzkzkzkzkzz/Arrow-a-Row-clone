@@ -57,6 +57,6 @@ public class BowSO : ScriptableObject
     public Sprite sprite;
 
     [Header("업그레이드 정보")]
-    public Material materials;                  // 업그레이드 단계별 머테리얼
+    public Color color;                         // 업그레이드 단계별 머테리얼
     public List<StatBonusList> StatBonusList;   // 레벨별 스탯 증가량
 }

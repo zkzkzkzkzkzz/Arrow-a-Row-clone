@@ -212,6 +212,7 @@ public class Player : MonoBehaviour
     {
         if (curBow.StatBonusList.Count > 0)
         {
+            // 레벨은 1부터 시작하지만 스탯보너스리스트 인덱스는 0부터 시작
             foreach (var stat in curBow.StatBonusList[bowLV - 1])
                 increaseStat(stat.statType, stat.value);
         }
@@ -241,9 +242,9 @@ public class Player : MonoBehaviour
         Debug.Log($" 활 레벨 변경: {curBow.bowName} (Lv. {bowLV})");
     }
 
-    public Material GetCurBowMaterial()
+    public Color GetCurBowColor()
     {
-        return curBow.materials;
+        return curBow.color;
     }
 
     public bool IsChangeBow()

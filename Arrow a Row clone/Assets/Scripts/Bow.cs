@@ -75,11 +75,11 @@ public class Bow : MonoBehaviour
     /// </summary>
     private void ChangeBowMaterial()
     {
-        Material mat = player.GetCurBowMaterial();
+        Color color = player.GetCurBowColor();
 
         Renderer rend = GetComponentInChildren<Renderer>();
 
         if (rend != null)
-            rend.material = mat;
+            rend.material.color = color;
     }
 }
