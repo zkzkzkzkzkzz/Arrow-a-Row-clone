@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4924209927acf2d48846b20714f604ae, type: 3}
-  m_Name: Bow_normal
+  m_Name: NormalBow
   m_EditorClassIdentifier: 
-  bowName: NormalBow
+  bowName: 
   bowType: 0
   sprite: {fileID: 0}
-  materials:
-  - {fileID: 2100000, guid: 475427d0849a36543ab1727a53239853, type: 2}
+  materials: []
+  StatBonusList: []

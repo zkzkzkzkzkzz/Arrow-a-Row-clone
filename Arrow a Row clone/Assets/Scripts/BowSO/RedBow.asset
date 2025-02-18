@@ -9,10 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a20f31e0598d9c4d8b3cabd1948fc55, type: 3}
+  m_Script: {fileID: 11500000, guid: 4924209927acf2d48846b20714f604ae, type: 3}
   m_Name: RedBow
   m_EditorClassIdentifier: 
-  bowName: 
+  bowName: RedBow
   bowType: 1
   sprite: {fileID: 0}
-  materials: []
+  materials:
+  - {fileID: 0}
+  StatBonusList:
+  - statBonus:
+    - statType: 2
+      value: 6
+    - statType: 3
+      value: -1
