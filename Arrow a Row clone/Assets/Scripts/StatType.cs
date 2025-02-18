@@ -9,7 +9,7 @@ public enum StatCategory
     None        = 0,                    // 아무데서도 나오지 않음
     GateOnly    = 1 << 0,               // 게이트에서만 나옴
     BossOnly    = 1 << 1,               // 보스 처치 보상에서만 나옴
-    Both        = 1 << 2,               // 두 가지 상황에서 모두 얻을 수 있음
+    Both        = GateOnly | BossOnly,  // 두 곳 모두 얻을 수 있음
 }
 
 public enum StatType
@@ -76,12 +76,12 @@ public static class StatTypeExtensions
 
     public static bool CanBeAppliedInGate(this StatType stat)
     {
-        return (statCategories[stat] & StatCategory.GateOnly) != 0 || (statCategories[stat] & StatCategory.Both) != 0;
+        return (statCategories[stat] & StatCategory.GateOnly) != 0;
     }
 
     public static bool CanBeAppliedInBoss(this StatType stat)
     {
-        return (statCategories[stat] & StatCategory.BossOnly) != 0 || (statCategories[stat] & StatCategory.Both) != 0;
+        return (statCategories[stat] & StatCategory.BossOnly) != 0;
     }
 
     public static string GetStatName(this StatType stat)
