@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4924209927acf2d48846b20714f604ae, type: 3}
   m_Name: NormalBow
   m_EditorClassIdentifier: 
-  bowName: 
+  bowName: NormalBow
   bowType: 0
   sprite: {fileID: 0}
-  materials: []
+  color: {r: 0, g: 0, b: 0, a: 0}
   StatBonusList: []

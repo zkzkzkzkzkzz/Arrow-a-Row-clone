@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private int bowLV = 0;
     private bool isChangeBow = false;
 
+    [SerializeField] private int FinalArrowATK;
+
     [System.Serializable]
     public struct PlayerStats
     {
@@ -41,13 +43,15 @@ public class Player : MonoBehaviour
         public float SwordSpeed;
         public int SwordRange;
         public int SwordCnt;
+
+        public int Percentage;
     }
 
     [SerializeField] private PlayerStats stats;
 
     public void SetPlayerStats(int _HP, int _moveSpeed,
                         int _ArrowATK, int _ArrowRate, int _ArrowSpeed, int _ArrowRange, int _ArrowCnt,
-                        float _SwordATK, float _SwordRate, float _SwordSpeed, int _SwordRange, int _SwordCnt)
+                        float _SwordATK, float _SwordRate, float _SwordSpeed, int _SwordRange, int _SwordCnt, int _Percentage)
     {
         stats.HP = _HP;
         stats.moveSpeed = _moveSpeed;
@@ -63,6 +67,8 @@ public class Player : MonoBehaviour
         stats.SwordSpeed = _SwordSpeed;
         stats.SwordRange = _SwordRange;
         stats.SwordCnt = _SwordCnt;
+
+        stats.Percentage = _Percentage;
     }
 
     void Start()
@@ -84,6 +90,8 @@ public class Player : MonoBehaviour
             curBow = BowList[0];
             ApplyBowStats();
         }
+
+        FinalArrowATK = Mathf.RoundToInt(stats.ArrowATK * (stats.Percentage / 100f));
     }
 
 
@@ -188,9 +196,14 @@ public class Player : MonoBehaviour
             case StatType.SWORDCNT:
                 stats.SwordCnt += (int)value;
                 break;
+            case StatType.PERCENTAGE:
+                stats.Percentage = Mathf.Clamp((int)value, 0, 100);
+                break;
             default:
                 break;
         }
+
+        FinalArrowATK = Mathf.RoundToInt(stats.ArrowATK * (stats.Percentage / 100f));
     }
 
     /// <summary>
@@ -250,5 +263,10 @@ public class Player : MonoBehaviour
     public bool IsChangeBow()
     {
         return isChangeBow;
+    }
+
+    public int GetFinalArrowATK()
+    {
+        return FinalArrowATK;
     }
 }

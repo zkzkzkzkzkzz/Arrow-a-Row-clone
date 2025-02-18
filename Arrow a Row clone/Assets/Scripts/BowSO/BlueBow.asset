@@ -12,8 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4924209927acf2d48846b20714f604ae, type: 3}
   m_Name: BlueBow
   m_EditorClassIdentifier: 
-  bowName: 
-  bowType: 0
+  bowName: BlueBow
+  bowType: 2
   sprite: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
-  StatBonusList: []
+  color: {r: 0, g: 0.26607466, b: 1, a: 0}
+  StatBonusList:
+  - statBonus:
+    - statType: 3
+      value: 6
+    - statType: 2
+      value: -2
+  - statBonus:
+    - statType: 3
+      value: 6
+  - statBonus:
+    - statType: 6
+      value: 2
+    - statType: 12
+      value: 35
+  - statBonus:
+    - statType: 2
+      value: 6

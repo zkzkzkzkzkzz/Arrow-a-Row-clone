@@ -41,7 +41,7 @@ public class Arrow : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            other.GetComponent<Monster>().TakeDamage(player.GetPlayerStats().ArrowATK);
+            other.GetComponent<Monster>().TakeDamage(player.GetFinalArrowATK());
             objPool.ReturnArrow(gameObject);
         }
         else

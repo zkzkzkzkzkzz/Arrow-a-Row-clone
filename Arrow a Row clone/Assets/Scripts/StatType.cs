@@ -9,7 +9,7 @@ public enum StatCategory
     None        = 0,                    // 아무데서도 나오지 않음
     GateOnly    = 1 << 0,               // 게이트에서만 나옴
     BossOnly    = 1 << 1,               // 보스 처치 보상에서만 나옴
-    Both        = 1 << 2,  // 두 가지 상황에서 모두 얻을 수 있음
+    Both        = 1 << 2,               // 두 가지 상황에서 모두 얻을 수 있음
 }
 
 public enum StatType
@@ -27,7 +27,9 @@ public enum StatType
     SWORDRATE,
     SWORDSPEED,
     SWORDRANGE,
-    SWORDCNT
+    SWORDCNT,
+
+    PERCENTAGE,
 }
 
 public static class StatTypeExtensions
@@ -48,6 +50,8 @@ public static class StatTypeExtensions
         {StatType.SWORDSPEED,   StatCategory.BossOnly},
         {StatType.SWORDRANGE,   StatCategory.GateOnly},
         {StatType.SWORDCNT,     StatCategory.GateOnly},
+
+        {StatType.PERCENTAGE, StatCategory.None}
     };
 
     private static readonly Dictionary<StatType, string> statNames = new Dictionary<StatType, string>
@@ -66,6 +70,8 @@ public static class StatTypeExtensions
         {StatType.SWORDSPEED,   "검 속도"},
         {StatType.SWORDRANGE,   "검 거리"},
         {StatType.SWORDCNT,     "검 개수"},
+
+        {StatType.PERCENTAGE, "화살 공격력 퍼센트"}
     };
 
     public static bool CanBeAppliedInGate(this StatType stat)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 [System.Serializable]
 public class StatBonus
 {
@@ -32,11 +33,15 @@ public class StatBonusList : IEnumerable<StatBonus>
         return statBonus.GetEnumerator();
     }
 
+    // 비제네릭 IEnumerator 인터페이스 구현하기 위함
+    // foreach 구문은 비제네릭 IEnumerable 인터페이스의 GetEnumerator()도 호출할 수 있도록 요구한다
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
 
+    // StatBonusList 클래스 내 읽기 전용 프로퍼티
+    // List<StatBonus> statBonus의 Count를 반환한다
     public int Count => statBonus.Count;
 }
 
