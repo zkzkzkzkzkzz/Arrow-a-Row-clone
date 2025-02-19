@@ -7,11 +7,17 @@ public class Monster : MonoBehaviour
     private Player player;
     private MonsterPool monsterPool;
 
+    private ChestPool chestPool;
+
     private void Start()
     {
         monsterPool = FindObjectOfType<MonsterPool>();
         if (monsterPool == null)
             Debug.LogError("Monster에서 monsterPool을 찾을 수 없습니다.");
+
+        chestPool = FindObjectOfType<ChestPool>();
+        if (chestPool == null)
+            Debug.LogError("Monster에서 chestPool을 찾을 수 없습니다.");
     }
 
     private void OnEnable()
@@ -47,7 +53,10 @@ public class Monster : MonoBehaviour
     {
         int curHP = GetMonsterHP();
         if (curHP - damage <= 0)
+        {
             monsterPool.ReturnMonster(gameObject, stats.isBoss);
+            SpawnChest();
+        }
         else
             SetMonsterHP(curHP - damage);
     }
@@ -59,6 +68,18 @@ public class Monster : MonoBehaviour
             int damage = GetMonsterHP();
             player.TakeDamage(damage);
             monsterPool.ReturnMonster(gameObject, stats.isBoss);
+            SpawnChest();
         }
+    }
+
+    private void SpawnChest()
+    {
+        Vector3 spawnPos = transform.position;
+        GameObject chest = chestPool.GetChest();
+        chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.4f, spawnPos.z + 1.7f);
+        chest.transform.rotation = Quaternion.LookRotation(-chest.transform.forward);
+        chest.transform.SetParent(transform.parent);
+
+        chest.GetComponent<Chest>().IdleChest();
     }
 }
