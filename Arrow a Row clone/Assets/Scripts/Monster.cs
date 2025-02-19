@@ -76,8 +76,8 @@ public class Monster : MonoBehaviour
     {
         Vector3 spawnPos = transform.position;
         GameObject chest = chestPool.GetChest();
-        chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.4f, spawnPos.z + 1.7f);
-        chest.transform.rotation = Quaternion.LookRotation(-chest.transform.forward);
+        chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.4f, spawnPos.z);
+        chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
         chest.transform.SetParent(transform.parent);
 
         chest.GetComponent<Chest>().IdleChest();

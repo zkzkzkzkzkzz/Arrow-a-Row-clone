@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Chest : MonoBehaviour
@@ -17,6 +18,8 @@ public class Chest : MonoBehaviour
 
         stat = GetRandomChestStat();
         value = CheckStatValue(stat);
+
+        DisplayText();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,9 +84,24 @@ public class Chest : MonoBehaviour
         animator.SetBool("isTrigger", false);
     }
 
+    /// <summary>
+    /// 애니메이션 재생 이후 풀로 자동 반환
+    /// </summary>
+    /// <param name="delay"></param>
+    /// <returns></returns>
     private IEnumerator ReturnChestAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         chestPool.ReturnChest(gameObject);
+    }
+
+    private void DisplayText()
+    {
+        if (stat == StatType.SWORDATK)
+            GetComponentInChildren<TextMeshPro>().text = stat.GetStatName() + "\n+" + value.ToString("F1");
+        else if (stat == StatType.SWORDRATE)
+            GetComponentInChildren<TextMeshPro>().text = stat.GetStatName() + "\n-" + ((int)value).ToString() + "%";
+        else
+            GetComponentInChildren<TextMeshPro>().text = stat.GetStatName() + "\n+" + ((int)value).ToString();
     }
 }
