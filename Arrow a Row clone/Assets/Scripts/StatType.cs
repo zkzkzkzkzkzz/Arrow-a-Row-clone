@@ -6,10 +6,14 @@ using UnityEngine;
 [System.Flags]
 public enum StatCategory
 {
-    None        = 0,                    // 아무데서도 나오지 않음
-    GateOnly    = 1 << 0,               // 게이트에서만 나옴
-    BossOnly    = 1 << 1,               // 보스 처치 보상에서만 나옴
-    Both        = GateOnly | BossOnly,  // 두 곳 모두 얻을 수 있음
+    None        = 0,                                // 아무데서도 나오지 않음
+    GateOnly    = 1 << 0,                           // 게이트에서만 나옴
+    BossOnly    = 1 << 1,                           // 보스 처치 보상에서만 나옴
+    ChestOnly   = 1 << 2,                           // 상자에서만 나옴
+    Gate_Boss   = GateOnly | BossOnly,              // 게이트 & 보스 처치
+    Gate_Chest  = GateOnly | ChestOnly,             // 게이트 & 상자
+    Boss_Chest  = BossOnly | ChestOnly,             // 보스 처치 & 상자
+    ALL         = GateOnly | BossOnly | ChestOnly   // 모든 곳에서 나옴
 }
 
 public enum StatType
@@ -36,20 +40,20 @@ public static class StatTypeExtensions
 {
     private static readonly Dictionary<StatType, StatCategory> statCategories = new Dictionary<StatType, StatCategory>
     {
-        {StatType.HP,           StatCategory.Both},
+        {StatType.HP,           StatCategory.Gate_Boss},
         {StatType.MOVESPEED,    StatCategory.GateOnly},
 
-        {StatType.ARROWATK,     StatCategory.GateOnly},
-        {StatType.ARROWRATE,    StatCategory.GateOnly},
-        {StatType.ARROWSPEED,   StatCategory.GateOnly},
-        {StatType.ARROWRANGE,   StatCategory.GateOnly},
+        {StatType.ARROWATK,     StatCategory.Gate_Chest},
+        {StatType.ARROWRATE,    StatCategory.Gate_Chest},
+        {StatType.ARROWSPEED,   StatCategory.Gate_Chest},
+        {StatType.ARROWRANGE,   StatCategory.Gate_Chest},
         {StatType.ARROWCNT,     StatCategory.BossOnly},
 
-        {StatType.SWORDATK,     StatCategory.GateOnly},
-        {StatType.SWORDRATE,    StatCategory.GateOnly},
+        {StatType.SWORDATK,     StatCategory.Gate_Chest},
+        {StatType.SWORDRATE,    StatCategory.Gate_Chest},
         {StatType.SWORDSPEED,   StatCategory.BossOnly},
-        {StatType.SWORDRANGE,   StatCategory.GateOnly},
-        {StatType.SWORDCNT,     StatCategory.GateOnly},
+        {StatType.SWORDRANGE,   StatCategory.Gate_Chest},
+        {StatType.SWORDCNT,     StatCategory.Gate_Chest},
 
         {StatType.PERCENTAGE, StatCategory.None}
     };
@@ -82,6 +86,11 @@ public static class StatTypeExtensions
     public static bool CanBeAppliedInBoss(this StatType stat)
     {
         return (statCategories[stat] & StatCategory.BossOnly) != 0;
+    }
+
+    public static bool CanBeAppliedInChest(this StatType stat)
+    {
+        return (statCategories[stat] & StatCategory.ChestOnly) != 0;
     }
 
     public static string GetStatName(this StatType stat)
