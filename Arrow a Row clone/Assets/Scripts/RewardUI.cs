@@ -25,6 +25,7 @@ public class RewardUI : MonoBehaviour
         if (rewardPanel == null || rewardButtons == null || rewardButtons.Length == 0)
             return;
 
+        Time.timeScale = 0f;
 
         curRewards = rewards;
         onRewardSelectedCallback = callback;
@@ -50,6 +51,9 @@ public class RewardUI : MonoBehaviour
         {
             IItemEffect selectedReward = curRewards[idx];
             rewardPanel.SetActive(false);
+
+            Time.timeScale = 1f;
+
             onRewardSelectedCallback?.Invoke(selectedReward);
         }
     }
