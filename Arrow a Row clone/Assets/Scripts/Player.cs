@@ -182,6 +182,11 @@ public class Player : MonoBehaviour
         return stats;
     }
 
+    public ItemStats GetPlayerItemStats()
+    {
+        return itemStats;
+    }
+
     public float GetArrowFireRate()
     {
         return 10f / stats.ArrowRate;
@@ -249,19 +254,19 @@ public class Player : MonoBehaviour
         switch (type)
         {
             case ItemType.CRITGLASSESLV:
-                itemStats.CritGlassesLV = (int)value;
+                itemStats.CritGlassesLV += (int)value;
                 break;
             case ItemType.CONVERTCAPELV:
-                itemStats.ConvertCapeLV = (int)value;
+                itemStats.ConvertCapeLV += (int)value;
                 break;
             case ItemType.PENETRATIONLV:
-                itemStats.PenetrationLV = (int)value;
+                itemStats.PenetrationLV += (int)value;
                 break;
             case ItemType.SHIELDLV:
-                itemStats.ShieldLV = (int)value;
+                itemStats.ShieldLV += (int)value;
                 break;
             case ItemType.LIFESTEALLV:
-                itemStats.LifeStealLV = (int)value;
+                itemStats.LifeStealLV += (int)value;
                 break;
 
             case ItemType.CRITCHANCE:

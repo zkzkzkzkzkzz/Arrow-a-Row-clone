@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +40,9 @@ public class RewardUI : MonoBehaviour
             int idx = i;    // 클로저 이슈 해결용 지역 변수
             rewardButtons[i].onClick.RemoveAllListeners();
             rewardButtons[i].onClick.AddListener(() => OnRewardButtonClicked(idx));
+
+            string str = rewards[i].GetEffectName();
+            rewardButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = str + rewards[i].Level.ToString();
         }
     }
 

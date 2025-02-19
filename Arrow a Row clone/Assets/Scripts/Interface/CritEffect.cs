@@ -5,35 +5,46 @@ using UnityEngine;
 
 public class CritEffect : IItemEffect
 {
+    public string name;
+    public int level;
     public float bonusChance;
     public float bonusDamage;
     
-    public CritEffect(float value1, float value2)
+    public CritEffect(int lv, float value1, float value2,string _name = "CritGlasses")
     {
+        this.level = lv;
         this.bonusChance = value1;
         this.bonusDamage = value2;
+        this.name = _name;
     }
 
-    public static Dictionary<int, CritEffect> effects = new Dictionary<int, CritEffect>
+    public static CritEffect[] effects = new CritEffect[]
     {
-        {0, new CritEffect(0f, 0f)},
-        {1, new CritEffect(10f, 1.5f)},
-        {2, new CritEffect(15f, 2f)},
-        {3, new CritEffect(20f, 2.5f)},
-        {4, new CritEffect(25f, 3f)},
+        new CritEffect(1, 10f, 1.5f),
+        new CritEffect(2, 15f, 2f),
+        new CritEffect(3, 20f, 2.5f),
+        new CritEffect(4, 25f, 3f)
     };
 
     public static CritEffect GetEffectForLevel(int lv)
     {
-        if (effects.TryGetValue(lv, out CritEffect effect))
-            return effect;
+        if (lv < 1 || lv > effects.Length)
+            return null;
 
-        return null;
+        return effects[lv - 1];
     }
 
     public void ApplyEffect(Player player)
     {
+        player.IncreaseItemStats(ItemType.CRITGLASSESLV, 1);
         player.IncreaseItemStats(ItemType.CRITCHANCE, bonusChance);
         player.IncreaseItemStats(ItemType.CRITDAMAGE, bonusDamage);
     }
+
+    public string GetEffectName()
+    {
+        return name;
+    }
+
+    public int Level { get { return level; } }
 }
