@@ -32,7 +32,7 @@ public class StatGate : MonoBehaviour
         Player player = other.GetComponent<Player>();
 
         if (player != null)
-            player.increaseStat(statType, value);
+            player.IncreaseStat(statType, value);
 
         gatePool.ReturnGate(gameObject);
         spawner.SetTrigger(true);

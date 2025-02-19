@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -47,7 +48,27 @@ public class Player : MonoBehaviour
         public int Percentage;
     }
 
+    [System.Serializable]
+    public struct ItemStats
+    {
+        // 아이템 레벨
+        public int CritGlassesLV;   // 치명타 확률 및 치명타 데미지 아이템
+        public int ConvertCapeLV;   // 화살 속도를 일정 부분 데미지로 전환
+        public int PenetrationLV;   // 화살 관통 가능
+        public int ShieldLV;        // 플레이어가 입는 데미지 일부 감소
+        public int LifeStealLV;     // 생명력 흡수
+
+        // 아이템 스탯
+        public float CritChance;        // 치명타 확률
+        public float CritDamage;        // 치명타 데미지 (2f == 200% 데미지)
+        public float ConvertDamage;     // 화살 속도 전환 데미지
+        public float PenetrationDamage; // 관통된 화살의 데미지
+        public float Shield;            // 데미지 감소량
+        public float LifeSteal;         // 생명력 흡수 비율
+    }
+
     [SerializeField] private PlayerStats stats;
+    [SerializeField] private ItemStats itemStats;
 
     public void SetPlayerStats(int _HP, int _moveSpeed,
                         int _ArrowATK, int _ArrowRate, int _ArrowSpeed, int _ArrowRange, int _ArrowCnt,
@@ -71,6 +92,23 @@ public class Player : MonoBehaviour
         stats.Percentage = _Percentage;
     }
 
+    public void SetItemStats(int _CritGlassesLV, int _ConvertCapeLV, int _PenetrationLV, int _ShieldLV, int _LifeStealLV,
+                            float _CritChance, float _CritDamage, float _Penetration, float _Shield, float _LifeSteal)
+    {
+        itemStats.CritGlassesLV = _CritGlassesLV;
+        itemStats.ConvertCapeLV = _ConvertCapeLV;
+        itemStats.PenetrationLV = _PenetrationLV;
+        itemStats.ShieldLV = _ShieldLV;
+        itemStats.LifeStealLV = _LifeStealLV;
+
+        itemStats.CritChance = _CritChance;
+        itemStats.CritDamage = _CritDamage;
+        itemStats.PenetrationDamage = _Penetration;
+        itemStats.Shield = _Shield;
+        itemStats.LifeSteal = _LifeSteal;
+    }
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -91,7 +129,7 @@ public class Player : MonoBehaviour
             ApplyBowStats();
         }
 
-        FinalArrowATK = Mathf.RoundToInt(stats.ArrowATK * (stats.Percentage / 100f));
+        CalFinalArrowATK();
     }
 
 
@@ -154,7 +192,7 @@ public class Player : MonoBehaviour
         stats.HP -= damage;
     }
 
-    public void increaseStat(StatType statType, float value)
+    public void IncreaseStat(StatType statType, float value)
     {
         switch (statType)
         {
@@ -203,7 +241,50 @@ public class Player : MonoBehaviour
                 break;
         }
 
-        FinalArrowATK = Mathf.RoundToInt(stats.ArrowATK * (stats.Percentage / 100f));
+        CalFinalArrowATK();
+    }
+
+    public void IncreaseItemStats(ItemType type, float value)
+    {
+        switch (type)
+        {
+            case ItemType.CRITGLASSESLV:
+                itemStats.CritGlassesLV = (int)value;
+                break;
+            case ItemType.CONVERTCAPELV:
+                itemStats.ConvertCapeLV = (int)value;
+                break;
+            case ItemType.PENETRATIONLV:
+                itemStats.PenetrationLV = (int)value;
+                break;
+            case ItemType.SHIELDLV:
+                itemStats.ShieldLV = (int)value;
+                break;
+            case ItemType.LIFESTEALLV:
+                itemStats.LifeStealLV = (int)value;
+                break;
+
+            case ItemType.CRITCHANCE:
+                itemStats.CritChance = value;
+                break;
+            case ItemType.CRITDAMAGE:
+                itemStats.CritDamage = value;
+                break;
+            case ItemType.CONVERTDAMAGE:
+                itemStats.ConvertDamage = value;
+                break;
+            case ItemType.PENETRATIONDAMAGE:
+                itemStats.PenetrationDamage = value;
+                break;
+            case ItemType.SHIELD:
+                itemStats.Shield = value;
+                break;
+            case ItemType.LIFESTEAL:
+                itemStats.LifeSteal = value;
+                break;
+            default:
+                break;
+        }
     }
 
     /// <summary>
@@ -227,9 +308,40 @@ public class Player : MonoBehaviour
         {
             // 레벨은 1부터 시작하지만 스탯보너스리스트 인덱스는 0부터 시작
             foreach (var stat in curBow.StatBonusList[bowLV - 1])
-                increaseStat(stat.statType, stat.value);
+                IncreaseStat(stat.statType, stat.value);
         }
     }
+
+    public Color GetCurBowColor()
+    {
+        return curBow.color;
+    }
+
+    public bool IsChangeBow()
+    {
+        return isChangeBow;
+    }
+
+    public int GetFinalArrowATK()
+    {
+        return FinalArrowATK;
+    }
+
+    private void CalFinalArrowATK()
+    {
+        FinalArrowATK = Mathf.RoundToInt(stats.ArrowATK * (stats.Percentage / 100f));
+
+        if (IsCritical())
+            FinalArrowATK = Mathf.RoundToInt(FinalArrowATK * itemStats.CritDamage);
+    }
+
+    private bool IsCritical()
+    {
+        float val = Random.Range(0f, 100f);
+        
+        return val >= itemStats.CritChance ? true : false;
+    }
+
 
     /// <summary>
     /// 디버그용 활 변경
@@ -255,18 +367,8 @@ public class Player : MonoBehaviour
         Debug.Log($" 활 레벨 변경: {curBow.bowName} (Lv. {bowLV})");
     }
 
-    public Color GetCurBowColor()
+    public void GainCritGlasses()
     {
-        return curBow.color;
-    }
-
-    public bool IsChangeBow()
-    {
-        return isChangeBow;
-    }
-
-    public int GetFinalArrowATK()
-    {
-        return FinalArrowATK;
+        itemStats.CritGlassesLV = Mathf.Clamp(++itemStats.CritGlassesLV, 0, 4);
     }
 }

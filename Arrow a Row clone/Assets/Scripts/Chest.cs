@@ -27,7 +27,7 @@ public class Chest : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OpenChest();
-            other.GetComponent<Player>().increaseStat(stat, value);
+            other.GetComponent<Player>().IncreaseStat(stat, value);
         }
     }
 
