@@ -9,21 +9,23 @@ public class CritEffect : IItemEffect
     public int level;
     public float bonusChance;
     public float bonusDamage;
+    public RewardType type;
     
-    public CritEffect(int lv, float value1, float value2,string _name = "CritGlasses")
+    public CritEffect(int lv, float value1, float value2, RewardType _type, string _name = "CritGlasses")
     {
         this.level = lv;
         this.bonusChance = value1;
         this.bonusDamage = value2;
+        this.type = _type;
         this.name = _name;
     }
 
     public static CritEffect[] effects = new CritEffect[]
     {
-        new CritEffect(1, 10f, 1.5f),
-        new CritEffect(2, 15f, 2f),
-        new CritEffect(3, 20f, 2.5f),
-        new CritEffect(4, 25f, 3f)
+        new CritEffect(1, 10f,1.5f, RewardType.FINITE),
+        new CritEffect(2, 15f,2f, RewardType.FINITE),
+        new CritEffect(3, 20f,2.5f, RewardType.FINITE),
+        new CritEffect(4, 25f,3f, RewardType.FINITE)
     };
 
     public static CritEffect GetEffectForLevel(int lv)
@@ -46,5 +48,17 @@ public class CritEffect : IItemEffect
         return name;
     }
 
+    public IItemEffect GetNextReward(Player player)
+    {
+        int curLv = player.GetPlayerItemStats().CritGlassesLV;
+        int nextLv = (curLv == 0) ? 1 : curLv + 1;
+
+        if (nextLv <= 4)
+            return GetEffectForLevel(nextLv);
+
+        return null;
+    }
+
     public int Level { get { return level; } }
+    public RewardType RewardType { get { return type; } }
 }

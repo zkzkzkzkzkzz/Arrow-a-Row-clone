@@ -67,24 +67,14 @@ public class RewardManager : MonoBehaviour
 
         foreach (IItemEffect effect in rewardPool)
         {
-            // 테스트용 CritEffect 타입만 처리
-            if (effect is CritEffect)
+            if (effect.RewardType == RewardType.FINITE)
             {
-                int curLv = player.GetPlayerItemStats().CritGlassesLV;
-
-                int nextLv = (curLv == 0) ? 1 : curLv + 1;
-
-                if (nextLv <= 4)
-                {
-                    CritEffect nextEffect = CritEffect.GetEffectForLevel(nextLv);
-                    if (nextEffect != null)
-                        availableRewards.Add(nextEffect);
-                }
+                IItemEffect nextEffect = effect.GetNextReward(player);
+                if (nextEffect != null)
+                    availableRewards.Add(nextEffect);
             }
             else
-            {
                 availableRewards.Add(effect);
-            }
         }
 
         return availableRewards;
