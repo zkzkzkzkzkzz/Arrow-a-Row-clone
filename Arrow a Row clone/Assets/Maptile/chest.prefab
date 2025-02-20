@@ -99,7 +99,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sample text
+  m_text: "\uC0D8\uD50C \uC2A4\uD0EF\n+1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4110ad05f9a573f458dd3a1145277af8, type: 2}
   m_sharedMaterial: {fileID: -4570352780354483372, guid: 4110ad05f9a573f458dd3a1145277af8, type: 2}
