@@ -9,7 +9,7 @@ public interface IItemEffect
     RewardType RewardType { get; }
     string GetEffectName();
 
-    IItemEffect GetNextReward();
+    IItemEffect GetNextReward(Player player);
 }
 
 public enum RewardType

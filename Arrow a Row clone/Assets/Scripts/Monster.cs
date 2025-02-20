@@ -49,6 +49,11 @@ public class Monster : MonoBehaviour
         return stats.HP;
     }
 
+    public bool IsBoss()
+    {
+        return stats.isBoss;
+    }
+
     public void TakeDamage(int damage)
     {
         int curHP = GetMonsterHP();
@@ -74,12 +79,25 @@ public class Monster : MonoBehaviour
 
     private void SpawnChest()
     {
-        Vector3 spawnPos = transform.position;
-        GameObject chest = chestPool.GetChest();
-        chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.4f, spawnPos.z);
-        chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
-        chest.transform.SetParent(transform.parent);
+        if (IsBoss())
+        {
+            Vector3 spawnPos = transform.position;
+            GameObject chest = chestPool.GetBossChest();
+            chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.7f, spawnPos.z);
+            chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
+            chest.transform.SetParent(transform.parent);
 
-        chest.GetComponent<Chest>().IdleChest();
+            chest.GetComponent<BossChest>().IdleChest();
+        }
+        else
+        {
+            Vector3 spawnPos = transform.position;
+            GameObject chest = chestPool.GetChest();
+            chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.4f, spawnPos.z);
+            chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
+            chest.transform.SetParent(transform.parent);
+
+            chest.GetComponent<Chest>().IdleChest();            
+        }
     }
 }

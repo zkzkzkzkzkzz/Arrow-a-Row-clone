@@ -76,11 +76,6 @@ public class Chest : MonoBehaviour
     private void OpenChest()
     {
         animator.SetBool("isTrigger", true);
-
-        RewardManager rewardMgr = FindAnyObjectByType<RewardManager>();
-        if (rewardMgr != null)
-            rewardMgr.ShowRewardSelection();
-
         StartCoroutine(ReturnChestAfterDelay(2f));
     }
 

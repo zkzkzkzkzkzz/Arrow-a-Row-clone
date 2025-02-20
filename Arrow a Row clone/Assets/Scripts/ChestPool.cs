@@ -7,7 +7,11 @@ public class ChestPool : MonoBehaviour
     [SerializeField] private GameObject chestPrefab;
     [SerializeField] private int poolSize = 3;
 
+    [SerializeField] private GameObject bossChestPrefab;
+    [SerializeField] private int poolSize2 = 3;
+
     private Queue<GameObject> chestPool = new Queue<GameObject>();
+    private Queue<GameObject> bossChestPool = new Queue<GameObject>();
 
     private void Start()
     {
@@ -16,6 +20,13 @@ public class ChestPool : MonoBehaviour
             GameObject obj = Instantiate(chestPrefab);
             obj.SetActive(false);
             chestPool.Enqueue(obj);
+        }
+
+        for (int i = 0; i < poolSize2; ++i)
+        {
+            GameObject obj = Instantiate(bossChestPrefab);
+            obj.SetActive(false);
+            bossChestPool.Enqueue(obj);     
         }
     }
 
@@ -29,14 +40,35 @@ public class ChestPool : MonoBehaviour
         }
         else
         {
-            GameObject gate = Instantiate(chestPrefab);
-            return gate;
+            GameObject @object = Instantiate(chestPrefab);
+            return @object;
         }
     }
 
-    public void ReturnChest(GameObject gate)
+    public void ReturnChest(GameObject chest)
     {
-        gate.SetActive(false);
-        chestPool.Enqueue(@gate);
+        chest.SetActive(false);
+        chestPool.Enqueue(chest);
+    }
+
+    public GameObject GetBossChest()
+    {
+        if (bossChestPool.Count > 0)
+        {
+            GameObject @object = bossChestPool.Dequeue();
+            @object.SetActive(true);
+            return @object;
+        }
+        else
+        {
+            GameObject @object = Instantiate(bossChestPrefab);
+            return @object;
+        }
+    }
+
+    public void ReturnBossChest(GameObject chest)
+    {
+        chest.SetActive(false);
+        bossChestPool.Enqueue(chest);
     }
 }
