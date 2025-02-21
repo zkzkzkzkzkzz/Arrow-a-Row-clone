@@ -76,7 +76,7 @@ public class Chest : MonoBehaviour
     private void OpenChest()
     {
         animator.SetBool("isTrigger", true);
-        StartCoroutine(ReturnChestAfterDelay(2f));
+        StartCoroutine(ReturnChestAfterDelay(1f));
     }
 
     public void IdleChest()

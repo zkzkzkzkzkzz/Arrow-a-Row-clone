@@ -7,7 +7,8 @@ public class RewardManager : MonoBehaviour
 {
     public List<IItemEffect> rewardPool = new List<IItemEffect>();
     [SerializeField] private RewardUI rewardUI;
-
+    [SerializeField] private BowSelectionUI bowSelectionUI;
+    
     [SerializeField] private Player player;
 
     private int bossRewardCount = 0;
@@ -32,15 +33,20 @@ public class RewardManager : MonoBehaviour
         if (bossRewardCount == 0)
         {
             player.BoardOn();
-            ++bossRewardCount;
         }
-        else if (bossRewardCount > 1)
+        else if (bossRewardCount == 1)
+        {
+            bowSelectionUI.ShowBows(OnBowSelected);
+        }
+        else
         {
             List<IItemEffect> selectedRewards = GetRandomRewards(3, CheckAvailableRewards());
 
             if (rewardUI != null)
                 rewardUI.ShowRewards(selectedRewards, OnRewardSelected);
         }
+
+        ++bossRewardCount;
     }
 
     /// <summary>
@@ -92,5 +98,21 @@ public class RewardManager : MonoBehaviour
         }
 
         return availableRewards;
+    }
+
+    /// <summary>
+    /// BowSelectionUI에서 활 선택 후 호출되는 콜백
+    /// 선택된 BowSO를 플레이어에 적용하고, 이후 보상 선택에서
+    /// 선택된 BowSO의 업그레이드 보상이 나오도록 설정
+    /// </summary>
+    private void OnBowSelected(BowSO selectedBow)
+    {
+        if (selectedBow != null && player != null)
+        {
+            player.SelectBow(selectedBow);
+
+            BowEffect bowEffect = new BowEffect(1, RewardType.INFINITE, selectedBow);
+            rewardPool.Add(bowEffect);
+        }
     }
 }

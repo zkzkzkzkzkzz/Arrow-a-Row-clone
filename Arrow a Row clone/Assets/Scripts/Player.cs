@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] List<BowSO> BowList;
     private BowSO curBow;
-    private int bowLV = 0;
-    private bool isChangeBow = false;
+    [SerializeField] private int bowLV = 0;
+    public bool isChangeBow = false;
 
     [SerializeField] private float FinalArrowATK;
 
@@ -300,12 +300,17 @@ public class Player : MonoBehaviour
     {
         curBow = selectedBow;
         bowLV = 1;
+        isChangeBow = true;
+        ApplyBowStats();
     }
 
     public void UpgradeBow(BowSO nextBow)
     {
         curBow = nextBow;
         ++bowLV;
+        if (bowLV > 4)
+            bowLV = 4;
+        ApplyBowStats();
     }
 
     private void ApplyBowStats()
@@ -316,6 +321,11 @@ public class Player : MonoBehaviour
             foreach (var stat in curBow.StatBonusList[bowLV - 1])
                 IncreaseStat(stat.statType, stat.value);
         }
+    }
+
+    public int GetCurBowLevel()
+    {
+        return bowLV;
     }
 
     public Color GetCurBowColor()

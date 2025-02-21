@@ -81,5 +81,7 @@ public class Bow : MonoBehaviour
 
         if (rend != null)
             rend.material.color = color;
+
+        player.isChangeBow = false;
     }
 }

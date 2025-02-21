@@ -95,7 +95,7 @@ public class Monster : MonoBehaviour
             chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
             chest.transform.SetParent(parent);
 
-            chest.GetComponent<BossChest>().IdleChest();
+            chest.GetComponent<BossChest>().IdleBossChest();
         }
         else
         {
@@ -105,7 +105,7 @@ public class Monster : MonoBehaviour
             chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
             chest.transform.SetParent(parent);
 
-            chest.GetComponent<Chest>().IdleChest();            
+            chest.GetComponent<Chest>().IdleChest();
         }
     }
 }

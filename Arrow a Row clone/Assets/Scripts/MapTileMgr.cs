@@ -35,6 +35,8 @@ public class MapTileMgr : MonoBehaviour
 
     private void Update()
     {
+        tileSpeed += chapter;
+
         foreach (GameObject tile in activeTiles)
         {
             tile.transform.Translate(0, 0, -tileSpeed * Time.deltaTime);

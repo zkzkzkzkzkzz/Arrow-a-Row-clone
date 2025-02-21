@@ -51,6 +51,7 @@ public class ChestPool : MonoBehaviour
 
     public void ReturnChest(GameObject chest)
     {
+        Debug.Log("일반상자 반환");
         chest.transform.SetParent(poolContainer);
         chest.SetActive(false);
         chestPool.Enqueue(chest);
@@ -73,6 +74,7 @@ public class ChestPool : MonoBehaviour
 
     public void ReturnBossChest(GameObject chest)
     {
+        Debug.Log("보스상자 반환");
         chest.transform.SetParent(poolContainer);
         chest.SetActive(false);
         bossChestPool.Enqueue(chest);

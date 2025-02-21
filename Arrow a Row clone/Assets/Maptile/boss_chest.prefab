@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: -827797500936140097}
   m_Layer: 6
   m_Name: boss_chest
-  m_TagString: Chest
+  m_TagString: BossChest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

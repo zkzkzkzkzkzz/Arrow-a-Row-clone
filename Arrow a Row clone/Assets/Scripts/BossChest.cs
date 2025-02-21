@@ -30,10 +30,10 @@ public class BossChest : MonoBehaviour
         if (rewardMgr != null)
             rewardMgr.ShowRewardSelection();
 
-        StartCoroutine(ReturnChestAfterDelay(2f));
+        StartCoroutine(ReturnChestAfterDelay(1f));
     }
 
-    public void IdleChest()
+    public void IdleBossChest()
     {
         animator.SetBool("isTrigger", false);
     }

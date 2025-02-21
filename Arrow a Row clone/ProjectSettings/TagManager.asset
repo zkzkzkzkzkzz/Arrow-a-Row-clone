@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - Gate
   - Chest
+  - BossChest
   layers:
   - Default
   - TransparentFX
