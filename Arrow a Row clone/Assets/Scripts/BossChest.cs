@@ -44,6 +44,6 @@ public class BossChest : MonoBehaviour
     private IEnumerator ReturnChestAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        chestPool.ReturnChest(gameObject);
+        chestPool.ReturnBossChest(gameObject);
     }
 }
