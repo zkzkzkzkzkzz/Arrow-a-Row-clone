@@ -166,9 +166,10 @@ public class Player : MonoBehaviour
         return isLeft;
     }
 
-    public void SetOnBoard(bool b)
+    public void BoardOn()
     {
-        isBoard = b;
+        isBoard = true;
+        swordBoard.gameObject.SetActive(true);
         animator.SetBool("isBoard", isBoard);
     }
 

@@ -10,13 +10,17 @@ public class RewardManager : MonoBehaviour
 
     [SerializeField] private Player player;
 
+    private int bossRewardCount = 0;
+
     private void Awake()
     {
-        rewardPool.Add(CritEffect.GetEffectForLevel(1));
-        rewardPool.Add(CapeEffect.GetEffectForLevel(1));
-        rewardPool.Add(LifeStealEffect.GetEffectForLevel(1));
-        rewardPool.Add(ShieldEffect.GetEffectForLevel(1));
-        rewardPool.Add(PenetrationEffect.GetEffectForLevel(1));
+        {
+            rewardPool.Add(CritEffect.GetEffectForLevel(1));
+            rewardPool.Add(CapeEffect.GetEffectForLevel(1));
+            rewardPool.Add(LifeStealEffect.GetEffectForLevel(1));
+            rewardPool.Add(ShieldEffect.GetEffectForLevel(1));
+            rewardPool.Add(PenetrationEffect.GetEffectForLevel(1));
+        }
     }
 
 
@@ -25,10 +29,18 @@ public class RewardManager : MonoBehaviour
     /// </summary>
     public void ShowRewardSelection()
     {
-        List<IItemEffect> selectedRewards = GetRandomRewards(3, CheckAvailableRewards());
+        if (bossRewardCount == 0)
+        {
+            player.BoardOn();
+            ++bossRewardCount;
+        }
+        else if (bossRewardCount > 1)
+        {
+            List<IItemEffect> selectedRewards = GetRandomRewards(3, CheckAvailableRewards());
 
-        if (rewardUI != null)
-            rewardUI.ShowRewards(selectedRewards, OnRewardSelected);
+            if (rewardUI != null)
+                rewardUI.ShowRewards(selectedRewards, OnRewardSelected);
+        }
     }
 
     /// <summary>
