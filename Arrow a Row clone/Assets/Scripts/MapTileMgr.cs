@@ -35,8 +35,6 @@ public class MapTileMgr : MonoBehaviour
 
     private void Update()
     {
-        tileSpeed += chapter;
-
         foreach (GameObject tile in activeTiles)
         {
             tile.transform.Translate(0, 0, -tileSpeed * Time.deltaTime);
@@ -60,6 +58,7 @@ public class MapTileMgr : MonoBehaviour
         if (recycleTileCnt >= 6)
         {
             ++curChapter;
+            tileSpeed += curChapter;
             recycleTileCnt = 0;
         }
     }
