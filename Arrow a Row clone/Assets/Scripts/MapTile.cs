@@ -38,7 +38,9 @@ public class MapTile : MonoBehaviour
         Vector3 minPos = leftCol.position;
         Vector3 maxPos = rightCol.position;
 
-        float randomX = Random.Range(minPos.x, maxPos.x);
+        float offset = 1f;
+
+        float randomX = Random.Range(minPos.x + offset, maxPos.x - offset);
         float y = -0.3f;
         float randomZ = Random.Range(minPos.z, maxPos.z);
 
@@ -62,6 +64,7 @@ public class MapTile : MonoBehaviour
     /// </summary>
     public void SpawnMonster(int tileIdx, int chapter)
     {
+        CheckSpawnChest();
         ClearMonsters(); // 기존 타일에 몬스터가 남아있을 경우 풀로 반환
 
         // 몬스터 소환
@@ -126,5 +129,28 @@ public class MapTile : MonoBehaviour
     public GateSpawner GetGateSpawner()
     {
         return gateSpawner;
+    }
+
+    /// <summary>
+    /// 현재 남아있는 스폰된 보물상자가 있는지 확인하고 남아있다면 풀로 반환
+    /// </summary>
+    private void CheckSpawnChest()
+    {
+        List<Transform> chest = new List<Transform>();
+        ChestPool chestPool = FindObjectOfType<ChestPool>();
+
+        foreach (Transform t in transform)
+        {
+            if (t.CompareTag("Chest"))
+            {
+                Debug.Log("상자 발견");
+                chest.Add(t);
+            }
+        }
+
+        for (int i = 0; i < chest.Count; ++i)
+        {
+            chestPool.ReturnChest(chest[i].gameObject);
+        }
     }
 }

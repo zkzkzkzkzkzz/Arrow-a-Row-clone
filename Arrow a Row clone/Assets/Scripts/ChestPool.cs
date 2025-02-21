@@ -13,6 +13,8 @@ public class ChestPool : MonoBehaviour
     private Queue<GameObject> chestPool = new Queue<GameObject>();
     private Queue<GameObject> bossChestPool = new Queue<GameObject>();
 
+    [SerializeField] private Transform poolContainer;
+
     private void Start()
     {
         for (int i = 0; i < poolSize; ++i)
@@ -20,13 +22,15 @@ public class ChestPool : MonoBehaviour
             GameObject obj = Instantiate(chestPrefab);
             obj.SetActive(false);
             chestPool.Enqueue(obj);
+            obj.transform.SetParent(poolContainer);
         }
 
         for (int i = 0; i < poolSize2; ++i)
         {
             GameObject obj = Instantiate(bossChestPrefab);
             obj.SetActive(false);
-            bossChestPool.Enqueue(obj);     
+            bossChestPool.Enqueue(obj);
+            obj.transform.SetParent(poolContainer);
         }
     }
 
@@ -47,6 +51,7 @@ public class ChestPool : MonoBehaviour
 
     public void ReturnChest(GameObject chest)
     {
+        chest.transform.SetParent(poolContainer);
         chest.SetActive(false);
         chestPool.Enqueue(chest);
     }
@@ -68,6 +73,7 @@ public class ChestPool : MonoBehaviour
 
     public void ReturnBossChest(GameObject chest)
     {
+        chest.transform.SetParent(poolContainer);
         chest.SetActive(false);
         bossChestPool.Enqueue(chest);
     }
