@@ -170,6 +170,7 @@ public class Player : MonoBehaviour
     {
         isBoard = true;
         swordBoard.gameObject.SetActive(true);
+        stats.SwordCnt = 2;
         animator.SetBool("isBoard", isBoard);
     }
 

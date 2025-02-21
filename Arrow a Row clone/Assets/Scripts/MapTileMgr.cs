@@ -58,7 +58,7 @@ public class MapTileMgr : MonoBehaviour
         if (recycleTileCnt >= 6)
         {
             ++curChapter;
-            tileSpeed += curChapter;
+            ++tileSpeed;
             recycleTileCnt = 0;
         }
     }
