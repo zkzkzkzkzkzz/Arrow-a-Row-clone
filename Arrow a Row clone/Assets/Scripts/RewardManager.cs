@@ -13,8 +13,10 @@ public class RewardManager : MonoBehaviour
     private void Awake()
     {
         rewardPool.Add(CritEffect.GetEffectForLevel(1));
-        rewardPool.Add(CritEffect.GetEffectForLevel(1));
-        rewardPool.Add(CritEffect.GetEffectForLevel(1));
+        rewardPool.Add(CapeEffect.GetEffectForLevel(1));
+        rewardPool.Add(LifeStealEffect.GetEffectForLevel(1));
+        rewardPool.Add(ShieldEffect.GetEffectForLevel(1));
+        rewardPool.Add(PenetrationEffect.GetEffectForLevel(1));
     }
 
 

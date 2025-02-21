@@ -71,6 +71,12 @@ public class Monster : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             int damage = GetMonsterHP();
+
+            if (player.HasShield())
+            {
+                damage = Mathf.RoundToInt(damage * (1 - (player.GetPlayerItemStats().Shield / 100)));
+            }
+
             player.TakeDamage(damage);
             monsterPool.ReturnMonster(gameObject, stats.isBoss);
             SpawnChest();

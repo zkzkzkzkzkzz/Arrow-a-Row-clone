@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private int bowLV = 0;
     private bool isChangeBow = false;
 
-    [SerializeField] private int FinalArrowATK;
+    [SerializeField] private float FinalArrowATK;
 
     [System.Serializable]
     public struct PlayerStats
@@ -327,7 +327,7 @@ public class Player : MonoBehaviour
         return isChangeBow;
     }
 
-    public int GetFinalArrowATK()
+    public float GetFinalArrowATK()
     {
         return FinalArrowATK;
     }
@@ -336,15 +336,44 @@ public class Player : MonoBehaviour
     {
         FinalArrowATK = Mathf.RoundToInt(stats.ArrowATK * (stats.Percentage / 100f));
 
+        if (HasConvertCape())
+        {
+            float convertDmg = stats.ArrowSpeed * (itemStats.ConvertDamage / 100);
+            FinalArrowATK += convertDmg;
+        }
+
         if (IsCritical())
-            FinalArrowATK = Mathf.RoundToInt(FinalArrowATK * itemStats.CritDamage);
+            FinalArrowATK *= itemStats.CritDamage;
     }
 
     private bool IsCritical()
     {
-        float val = Random.Range(0f, 100f);
+        float val = Random.Range(1f, 100f);
         
-        return val >= itemStats.CritChance ? true : false;
+        return val <= itemStats.CritChance ? true : false;
+    }
+
+    /// <summary>
+    /// 아이템을 획득 여부 확인 함수들
+    /// </summary>
+    private bool HasConvertCape()
+    {
+        return (itemStats.ConvertCapeLV > 0) ? true : false;
+    }
+
+    public bool HasLifeSteal()
+    {
+        return (itemStats.LifeStealLV > 0) ? true : false;
+    }
+
+    public bool HasShield()
+    {
+        return (itemStats.ShieldLV > 0) ? true : false;
+    }
+
+    public bool HasPenetration()
+    {
+        return (itemStats.PenetrationLV > 0) ? true : false;
     }
 
 

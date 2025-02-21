@@ -41,7 +41,14 @@ public class Arrow : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            other.GetComponent<Monster>().TakeDamage(player.GetFinalArrowATK());
+            other.GetComponent<Monster>().TakeDamage(Mathf.CeilToInt(player.GetFinalArrowATK()));
+
+            if (player.HasLifeSteal())
+            {
+                int hp = Mathf.RoundToInt(player.GetFinalArrowATK() * (player.GetPlayerItemStats().LifeSteal / 100f));
+                player.IncreaseStat(StatType.HP, hp);
+            }
+
             objPool.ReturnArrow(gameObject);
         }
         else
