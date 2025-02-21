@@ -10,6 +10,9 @@ public class Arrow : MonoBehaviour
     private Vector3 startPos; // 발사되는 순간의 위치
     private float range;
 
+    private bool isPenetration;
+    private int hitCount;
+
     void Start()
     {
         objPool = FindObjectOfType<ObjPool>();
@@ -20,13 +23,14 @@ public class Arrow : MonoBehaviour
         player = FindObjectOfType<Player>();
 
         if (player != null)
-        {
             range = player.GetPlayerStats().ArrowRange;
-        }
         else
-        {
             Debug.LogError("플레이어를 찾을 수 없습니다.");
-        }
+
+        if (player.GetPlayerItemStats().PenetrationLV > 0)
+            isPenetration = true;
+
+        hitCount = 0;
     }
 
     void Update()
@@ -41,15 +45,39 @@ public class Arrow : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
         {
-            other.GetComponent<Monster>().TakeDamage(Mathf.CeilToInt(player.GetFinalArrowATK()));
-
-            if (player.HasLifeSteal())
+            if (!isPenetration)
             {
-                int hp = Mathf.RoundToInt(player.GetFinalArrowATK() * (player.GetPlayerItemStats().LifeSteal / 100f));
-                player.IncreaseStat(StatType.HP, hp);
-            }
+                other.GetComponent<Monster>().TakeDamage(Mathf.CeilToInt(player.GetFinalArrowATK()));
 
-            objPool.ReturnArrow(gameObject);
+                if (player.HasLifeSteal())
+                {
+                    int hp = Mathf.RoundToInt(player.GetFinalArrowATK() * (player.GetPlayerItemStats().LifeSteal / 100f));
+                    player.IncreaseStat(StatType.HP, hp);
+                }
+
+                objPool.ReturnArrow(gameObject);
+            }
+            else
+            {
+                int dmg = 0;
+
+                if (hitCount == 0)
+                    dmg = Mathf.CeilToInt(player.GetFinalArrowATK());
+                else if (hitCount == 1)
+                    dmg = Mathf.RoundToInt(player.GetFinalArrowATK() * (player.GetPlayerItemStats().PenetrationDamage / 100f));
+                
+                other.GetComponent<Monster>().TakeDamage(dmg);
+                if (player.HasLifeSteal())
+                {
+                    int hp = Mathf.RoundToInt(dmg * (player.GetPlayerItemStats().LifeSteal / 100f));
+                    player.IncreaseStat(StatType.HP, hp);
+                }
+
+                ++hitCount;
+
+                if (hitCount >= 2)
+                    objPool.ReturnArrow(gameObject);
+            }
         }
         else
         {
