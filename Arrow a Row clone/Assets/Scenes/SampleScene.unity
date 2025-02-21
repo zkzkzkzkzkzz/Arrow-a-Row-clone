@@ -9548,7 +9548,7 @@ MonoBehaviour:
     ArrowCnt: 1
     SwordATK: 8
     SwordRate: 1
-    SwordSpeed: 4
+    SwordSpeed: 10
     SwordRange: 10
     SwordCnt: 0
     Percentage: 100
