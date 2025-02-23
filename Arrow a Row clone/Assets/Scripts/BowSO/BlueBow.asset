@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bowName: BlueBow
   bowType: 2
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: d566932e64d5dee42b029ea35c9e7dd0, type: 3}
   color: {r: 0, g: 0.26607466, b: 1, a: 0}
   StatBonusList:
   - statBonus:

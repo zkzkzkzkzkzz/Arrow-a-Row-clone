@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,9 +37,8 @@ public class BowSelectionUI : MonoBehaviour
             bowButtons[i].onClick.RemoveAllListeners();
             bowButtons[i].onClick.AddListener(() => onBowButtonClicked(idx));
 
-
-            string str = curBows[i].bowName;
-            bowButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = str;
+            bowButtons[i].GetComponent<Image>().sprite = curBows[i].sprite;
+            bowButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = BuildBonusDescription(curBows[i]);
         }
     }
 
@@ -50,5 +51,30 @@ public class BowSelectionUI : MonoBehaviour
             Time.timeScale = 1f;
             onBowSelectionCallback?.Invoke(selectedBow);
         }
+    }
+
+    /// <summary>
+    /// BowSO의 StatBonusList에서 1레벨의 스탯 보너스 정보를 문자열로 반환
+    /// </summary>
+    /// <param name="bow"></param>
+    /// <returns></returns>
+    private string BuildBonusDescription(BowSO bow)
+    {
+        var bonusList = bow.StatBonusList[0];
+        StringBuilder sb = new StringBuilder();
+        foreach (var bonus in bonusList)
+        {
+            if (bonus.statType == StatType.PERCENTAGE)
+                sb.AppendFormat("{0} : {1}%\n", bonus.statType.GetStatName(), bonus.value);
+            else
+            {
+                if (bonus.value >= 0)
+                    sb.AppendFormat("{0} +{1}\n", bonus.statType.GetStatName(), bonus.value);
+                else
+                    sb.AppendFormat("{0} {1}\n", bonus.statType.GetStatName(), bonus.value);
+            }
+        }
+
+        return sb.ToString();
     }
 }

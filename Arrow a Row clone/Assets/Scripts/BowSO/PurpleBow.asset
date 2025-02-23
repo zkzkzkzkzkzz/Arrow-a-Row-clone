@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bowName: PurpleBow
   bowType: 3
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 661f072a9697c7c448a75e048772e35c, type: 3}
   color: {r: 0.4048233, g: 0, b: 1, a: 0}
   StatBonusList:
   - statBonus:

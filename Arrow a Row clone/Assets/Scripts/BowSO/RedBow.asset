@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bowName: RedBow
   bowType: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 61ec179cc85aa7446b6540051ce0d8ab, type: 3}
   color: {r: 1, g: 0, b: 0, a: 0}
   StatBonusList:
   - statBonus:
