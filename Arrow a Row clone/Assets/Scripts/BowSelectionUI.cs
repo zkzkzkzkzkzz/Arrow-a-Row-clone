@@ -56,8 +56,6 @@ public class BowSelectionUI : MonoBehaviour
     /// <summary>
     /// BowSO의 StatBonusList에서 1레벨의 스탯 보너스 정보를 문자열로 반환
     /// </summary>
-    /// <param name="bow"></param>
-    /// <returns></returns>
     private string BuildBonusDescription(BowSO bow)
     {
         var bonusList = bow.StatBonusList[0];
