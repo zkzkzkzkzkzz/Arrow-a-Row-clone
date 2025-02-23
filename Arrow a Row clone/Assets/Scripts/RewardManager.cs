@@ -111,7 +111,7 @@ public class RewardManager : MonoBehaviour
         {
             player.SelectBow(selectedBow);
 
-            BowEffect bowEffect = new BowEffect(1, RewardType.INFINITE, selectedBow);
+            BowEffect bowEffect = new BowEffect(1, RewardType.INFINITE, selectedBow, selectedBow.bowName);
             rewardPool.Add(bowEffect);
         }
     }

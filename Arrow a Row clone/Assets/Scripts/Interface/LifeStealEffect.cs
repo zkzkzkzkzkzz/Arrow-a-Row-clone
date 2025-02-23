@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LifeStealEffect : IItemEffect
@@ -9,20 +10,26 @@ public class LifeStealEffect : IItemEffect
     public float ratio;
     public RewardType type;
 
-    public LifeStealEffect(int lv, float _ratio, RewardType _type, string _name = "LifeSteal")
+    private Sprite itemImage;
+    private string description;
+
+    public LifeStealEffect(int lv, float _ratio, RewardType _type,
+                            string image, string _desc, string _name = "LifeSteal")
     {
         this.level = lv;
         this.ratio = _ratio;
         this.type = _type;
+        this.itemImage = Resources.Load<Sprite>("Image/" + image);
+        this.description = _desc;
         this.name = _name;
     }
 
     public static LifeStealEffect[] effects = new LifeStealEffect[]
     {
-        new LifeStealEffect(1, 4f, RewardType.FINITE),
-        new LifeStealEffect(2, 7f, RewardType.FINITE),
-        new LifeStealEffect(3, 11f, RewardType.FINITE),
-        new LifeStealEffect(4, 16f, RewardType.FINITE)
+        new LifeStealEffect(1, 4f, RewardType.FINITE, "lifesteal", "ปýธํทย ศํผ๖ 4%"),
+        new LifeStealEffect(2, 7f, RewardType.FINITE, "lifesteal", "ปýธํทย ศํผ๖ 7%"),
+        new LifeStealEffect(3, 11f, RewardType.FINITE, "lifesteal", "ปýธํทย ศํผ๖ 11%"),
+        new LifeStealEffect(4, 16f, RewardType.FINITE, "lifesteal", "ปýธํทย ศํผ๖ 16%")
     };
 
     public static LifeStealEffect GetEffectForLevel(int lv)
@@ -57,4 +64,14 @@ public class LifeStealEffect : IItemEffect
 
     public int Level { get { return level; } }
     public RewardType RewardType { get { return type; } }
+
+    public Sprite GetItemImage()
+    {
+        return itemImage;
+    }
+
+    public string GetItemDescription()
+    {
+        return description;
+    }
 }

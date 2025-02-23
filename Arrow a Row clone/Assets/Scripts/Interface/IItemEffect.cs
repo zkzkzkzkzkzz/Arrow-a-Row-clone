@@ -10,6 +10,9 @@ public interface IItemEffect
     string GetEffectName();
 
     IItemEffect GetNextReward(Player player);
+
+    Sprite GetItemImage();
+    string GetItemDescription();
 }
 
 public enum RewardType

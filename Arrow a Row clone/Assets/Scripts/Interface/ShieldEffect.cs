@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ShieldEffect : IItemEffect
@@ -9,20 +10,26 @@ public class ShieldEffect : IItemEffect
     public float ratio;
     public RewardType type;
 
-    public ShieldEffect(int lv, float _ratio, RewardType _type, string _name = "Shield")
+    private Sprite itemImage;
+    private string description;
+
+    public ShieldEffect(int lv, float _ratio, RewardType _type,
+                        string image, string _desc, string _name = "Shield")
     {
         this.level = lv;
         this.ratio = _ratio;
         this.type = _type;
+        this.itemImage = Resources.Load<Sprite>("Image/" + image);
+        this.description = _desc;
         this.name = _name;
     }
 
     public static ShieldEffect[] effects = new ShieldEffect[]
     {
-        new ShieldEffect(1, 20f, RewardType.FINITE),
-        new ShieldEffect(2, 30f, RewardType.FINITE),
-        new ShieldEffect(3, 50f, RewardType.FINITE),
-        new ShieldEffect(4, 80f, RewardType.FINITE)
+        new ShieldEffect(1, 20f, RewardType.FINITE, "shield", "받는 피해량 감소 20%"),
+        new ShieldEffect(2, 30f, RewardType.FINITE, "shield", "받는 피해량 감소 30%"),
+        new ShieldEffect(3, 50f, RewardType.FINITE, "shield", "받는 피해량 감소 50%"),
+        new ShieldEffect(4, 80f, RewardType.FINITE, "shield", "받는 피해량 감소 80%")
     };
 
     public static ShieldEffect GetEffectForLevel(int lv)
@@ -57,4 +64,14 @@ public class ShieldEffect : IItemEffect
 
     public int Level { get { return level; } }
     public RewardType RewardType { get { return type; } }
+
+    public Sprite GetItemImage()
+    {
+        return itemImage;
+    }
+
+    public string GetItemDescription()
+    {
+        return description;
+    }
 }

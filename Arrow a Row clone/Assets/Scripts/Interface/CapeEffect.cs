@@ -9,20 +9,26 @@ public class CapeEffect : IItemEffect
     public float convertRatio;
     public RewardType type;
 
-    public CapeEffect(int level, float _convertRatio, RewardType type, string name = "ConvertCape")
+    private Sprite itemImage;
+    private string description;
+
+    public CapeEffect(int level, float _convertRatio, RewardType type,
+                    string image, string _desc, string name = "ConvertCape")
     {
         this.name = name;
         this.level = level;
         this.convertRatio = _convertRatio;
+        this.description = _desc;
+        this.itemImage = Resources.Load<Sprite>("Image/" + image);
         this.type = type;
     }
 
     public static CapeEffect[] effects = new CapeEffect[]
     {
-        new CapeEffect(1, 10f, RewardType.FINITE),
-        new CapeEffect(2, 25f, RewardType.FINITE),
-        new CapeEffect(3, 40f, RewardType.FINITE),
-        new CapeEffect(4, 80f, RewardType.FINITE)
+        new CapeEffect(1, 10f, RewardType.FINITE, "cape", "화살 속도를 화살 데미지로 전환 10%"),
+        new CapeEffect(2, 25f, RewardType.FINITE, "cape", "화살 속도를 화살 데미지로 전환 25%"),
+        new CapeEffect(3, 40f, RewardType.FINITE, "cape", "화살 속도를 화살 데미지로 전환 40%"),
+        new CapeEffect(4, 80f, RewardType.FINITE, "cape", "화살 속도를 화살 데미지로 전환 80%")
     };
 
     public static CapeEffect GetEffectForLevel(int lv)
@@ -57,4 +63,14 @@ public class CapeEffect : IItemEffect
 
     public int Level { get { return level; } }
     public RewardType RewardType { get { return type; } }
+
+    public Sprite GetItemImage()
+    {
+        return itemImage;
+    }
+
+    public string GetItemDescription()
+    {
+        return description;
+    }
 }

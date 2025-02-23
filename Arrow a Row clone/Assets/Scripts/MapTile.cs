@@ -137,20 +137,25 @@ public class MapTile : MonoBehaviour
     private void CheckSpawnChest()
     {
         List<Transform> chest = new List<Transform>();
+        List<Transform> bossChest = new List<Transform>();
         ChestPool chestPool = FindObjectOfType<ChestPool>();
 
         foreach (Transform t in transform)
         {
             if (t.CompareTag("Chest"))
             {
-                Debug.Log("상자 발견");
                 chest.Add(t);
+            }
+            else if (t.CompareTag("BossChest"))
+            {
+                bossChest.Add(t);
             }
         }
 
         for (int i = 0; i < chest.Count; ++i)
-        {
             chestPool.ReturnChest(chest[i].gameObject);
-        }
+
+        for (int i = 0; i < bossChest.Count; ++i)
+            chestPool.ReturnBossChest(bossChest[i].gameObject);
     }
 }

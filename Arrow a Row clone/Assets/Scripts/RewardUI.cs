@@ -41,8 +41,11 @@ public class RewardUI : MonoBehaviour
             rewardButtons[i].onClick.RemoveAllListeners();
             rewardButtons[i].onClick.AddListener(() => OnRewardButtonClicked(idx));
 
-            string str = rewards[i].GetEffectName();
-            rewardButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = str + rewards[i].Level.ToString();
+            Image icon = rewardButtons[i].GetComponent<Image>();
+            if (icon != null)
+                icon.sprite = rewards[i].GetItemImage();
+
+            rewardButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = rewards[i].GetItemDescription();
         }
     }
 
