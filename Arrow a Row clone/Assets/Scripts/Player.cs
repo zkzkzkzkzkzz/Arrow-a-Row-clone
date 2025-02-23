@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class Player : MonoBehaviour
     public bool isChangeBow = false;
 
     [SerializeField] private float FinalArrowATK;
+
+    private TextMeshPro HPText;
 
     [System.Serializable]
     public struct PlayerStats
@@ -130,6 +133,8 @@ public class Player : MonoBehaviour
         }
 
         CalFinalArrowATK();
+
+        HPText = GetComponentInChildren<TextMeshPro>();
     }
 
 
@@ -146,6 +151,8 @@ public class Player : MonoBehaviour
             isLeft = false;
 
         isChangeBow = false;
+
+        HPText.text = stats.HP.ToString();
     }
 
     void FixedUpdate()
