@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -8,6 +9,7 @@ public class Monster : MonoBehaviour
     private MonsterPool monsterPool;
 
     private ChestPool chestPool;
+    private TextMeshPro HPText;
 
     private void Start()
     {
@@ -18,6 +20,8 @@ public class Monster : MonoBehaviour
         chestPool = FindObjectOfType<ChestPool>();
         if (chestPool == null)
             Debug.LogError("Monster에서 chestPool을 찾을 수 없습니다.");
+
+        HPText = GetComponentInChildren<TextMeshPro>();
     }
 
     private void OnEnable()
@@ -25,6 +29,11 @@ public class Monster : MonoBehaviour
         player = FindObjectOfType<Player>();
         if (player == null)
             Debug.LogError("Monster에서 player를 찾을 수 없습니다.");
+    }
+
+    private void Update()
+    {
+        HPText.text = stats.HP.ToString();
     }
 
     [System.Serializable]
