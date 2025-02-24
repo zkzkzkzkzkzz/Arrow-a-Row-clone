@@ -32,8 +32,8 @@ public class SwordBoard : MonoBehaviour
 
     private void Update()
     {
-        //if (!player.isOnBoard())
-        //    return;
+        if (!player.isOnBoard())
+            return;
 
         if (!isSpawn)
            nextSpawnTime += Time.deltaTime;

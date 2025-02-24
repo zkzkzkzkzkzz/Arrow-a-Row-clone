@@ -7,6 +7,8 @@ public class GatePool : MonoBehaviour
     [SerializeField] private GameObject gatePref;
     [SerializeField] private int poolSize = 6;
 
+    [SerializeField] Transform poolContainer;
+
     private Queue<GameObject> gatePool = new Queue<GameObject>();
 
     private void Start()
@@ -16,6 +18,7 @@ public class GatePool : MonoBehaviour
             GameObject obj = Instantiate(gatePref);
             obj.SetActive(false);
             gatePool.Enqueue(obj);
+            obj.transform.SetParent(poolContainer);
         }
     }
 
@@ -36,6 +39,7 @@ public class GatePool : MonoBehaviour
 
     public void ReturnGate(GameObject gate)
     {
+        gate.transform.SetParent(poolContainer);
         gate.SetActive(false);
         gatePool.Enqueue(@gate);
     }

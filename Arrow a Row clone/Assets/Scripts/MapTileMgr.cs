@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Transactions;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
@@ -24,6 +25,8 @@ public class MapTileMgr : MonoBehaviour
     private int curChapter = 1;
     private int recycleTileCnt = 0;
 
+    [SerializeField] private CameraController cameraController;
+
     private void Start()
     {
         // 초기 타일 생성
@@ -43,6 +46,19 @@ public class MapTileMgr : MonoBehaviour
         CheckTiles();
         UpdatePlayerTileIdx();
 
+        if (GetPlayerTileIdx() == 5)
+        {
+            SetTileSpeed(0f);
+            if (cameraController != null)
+                cameraController.SetTPSMode(true);
+        }
+        else
+        {
+            SetTileSpeed(tileSpeed);
+            if (cameraController != null)
+                cameraController.SetTPSMode(false);
+        }
+
         if (activeTiles.Count == 0 || isNeedNewTile())
         {            
             SpawnTile();
@@ -58,6 +74,7 @@ public class MapTileMgr : MonoBehaviour
         if (recycleTileCnt >= 6)
         {
             ++curChapter;
+            ++tileSpeed;
             recycleTileCnt = 0;
         }
     }

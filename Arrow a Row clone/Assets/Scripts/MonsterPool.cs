@@ -8,6 +8,7 @@ public class MonsterPool : MonoBehaviour
     [SerializeField] private int monsterPoolSize = 5;
     [SerializeField] private GameObject bossPref;
     [SerializeField] private int bossPoolSize = 2;
+    [SerializeField] private Transform poolContainer;
 
     private Queue<GameObject> monsterPool = new Queue<GameObject>();
     private Queue<GameObject> bossPool = new Queue<GameObject>();
@@ -19,6 +20,7 @@ public class MonsterPool : MonoBehaviour
             GameObject monster = Instantiate(monsterPref);
             monster.SetActive(false);
             monsterPool.Enqueue(monster);
+            monster.transform.SetParent(poolContainer);
         }
 
         for (int i = 0; i < bossPoolSize; ++i)
@@ -26,6 +28,7 @@ public class MonsterPool : MonoBehaviour
             GameObject boss = Instantiate(bossPref);
             boss.SetActive(false);
             bossPool.Enqueue(boss);
+            boss.transform.SetParent(poolContainer);
         }
     }
 
@@ -57,6 +60,7 @@ public class MonsterPool : MonoBehaviour
 
     public void ReturnMonster(GameObject monster, bool _isBoss)
     {
+        monster.transform.SetParent(poolContainer);
         monster.SetActive(false);
 
         if (_isBoss)
