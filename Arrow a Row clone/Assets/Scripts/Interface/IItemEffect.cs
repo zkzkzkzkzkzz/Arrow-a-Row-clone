@@ -9,6 +9,11 @@ public interface IItemEffect
     RewardType RewardType { get; }
     string GetEffectName();
 
+    /// <summary>
+    /// 아이템 RewardType에 따라 다음 보상을 가져오는 함수
+    /// FINITE일 경우, maxLevel 이후 null 반환
+    /// INIFINTE일 경우, maxLevel 이상부터는 maxLevel 반환
+    /// </summary>
     IItemEffect GetNextReward(Player player);
 
     Sprite GetItemImage();
