@@ -10,6 +10,7 @@ TagManager:
   - Gate
   - Chest
   - BossChest
+  - FinalBoss
   layers:
   - Default
   - TransparentFX

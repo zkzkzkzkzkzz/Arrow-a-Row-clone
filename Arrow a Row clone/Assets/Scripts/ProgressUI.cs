@@ -57,7 +57,7 @@ public class ProgressUI : MonoBehaviour
             (4, 5),
             (7, 5),
             (10, 5),
-            (14, 5) // 최종 보스
+            (13, 5) // 최종 보스
         };
 
         for (int i = 0; i < bossTiles.Count; ++i)

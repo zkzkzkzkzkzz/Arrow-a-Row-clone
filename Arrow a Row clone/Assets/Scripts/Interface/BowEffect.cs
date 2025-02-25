@@ -34,9 +34,12 @@ public class BowEffect : IItemEffect
 
     public IItemEffect GetNextReward(Player player)
     {
+        int curLevel = player.GetCurBowLevel();
+        int nextLevel = (curLevel == 0) ? 1 : curLevel + 1;
+
         int maxLevel = 4;
-        if (level < maxLevel)
-            return new BowEffect(level + 1, type, bow, ImageName);
+        if (nextLevel <= maxLevel)
+            return new BowEffect(nextLevel, type, bow, ImageName);
         else
             return new BowEffect(maxLevel, type, bow, ImageName);
     }
