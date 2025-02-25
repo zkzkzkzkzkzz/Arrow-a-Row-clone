@@ -10430,10 +10430,10 @@ MonoBehaviour:
   stats:
     HP: 100
     moveSpeed: 3
-    ArrowATK: 102
+    ArrowATK: 10
     ArrowRate: 10
     ArrowSpeed: 6
-    ArrowRange: 10
+    ArrowRange: 15
     ArrowCnt: 1
     SwordATK: 8
     SwordRate: 1
