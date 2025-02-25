@@ -13,9 +13,12 @@ public class Arrow : MonoBehaviour
     private bool isPenetration;
     private int hitCount;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         objPool = FindObjectOfType<ObjPool>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -31,6 +34,9 @@ public class Arrow : MonoBehaviour
             isPenetration = true;
 
         hitCount = 0;
+
+        if (audioSource != null)
+            audioSource.Play();
     }
 
     void Update()

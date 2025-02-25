@@ -11,6 +11,13 @@ public class Chest : MonoBehaviour
     private StatType stat;
     private float value;
 
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnEnable()
     {
         chestPool = FindObjectOfType<ChestPool>();
@@ -26,6 +33,8 @@ public class Chest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (audioSource != null)
+                audioSource.Play();
             OpenChest();
             other.GetComponent<Player>().IncreaseStat(stat, value);
         }

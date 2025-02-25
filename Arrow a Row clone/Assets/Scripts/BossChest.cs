@@ -8,6 +8,13 @@ public class BossChest : MonoBehaviour
     private ChestPool chestPool;
     private Animator animator;
 
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnEnable()
     {
         chestPool = FindObjectOfType<ChestPool>();
@@ -18,6 +25,8 @@ public class BossChest : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (audioSource != null)
+                audioSource.Play();
             OpenChest();
         }
     }
