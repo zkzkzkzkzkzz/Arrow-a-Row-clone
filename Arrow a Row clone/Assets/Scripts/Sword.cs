@@ -81,10 +81,13 @@ public class Sword : MonoBehaviour
                 return;
             }
 
-            Vector3 Dir = (target.position - transform.position).normalized;
-            Quaternion targetRot = Quaternion.LookRotation(Dir);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, 360f * Time.deltaTime);
-            transform.position += transform.forward * speed * Time.deltaTime;
+            Vector3 curPos = transform.position;
+            Vector3 targetPos = target.position;
+            targetPos.y = transform.position.y;
+
+            Vector3 dir = (targetPos - curPos).normalized;
+            transform.rotation = Quaternion.LookRotation(dir);
+            transform.position += dir * speed * Time.deltaTime;
         }
     }
 
