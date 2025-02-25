@@ -138,7 +138,7 @@ public class MapTile : MonoBehaviour
         int baseHP = 50;
 
         if (isBoss)
-            return baseHP + (chapter - 1) * tileIdx + 50 * tileIdx;
+            return baseHP + (chapter - 1) * tileIdx + 25 * tileIdx;
         else
             return baseHP + (chapter - 1) * tileIdx + 10 * tileIdx;
     }
