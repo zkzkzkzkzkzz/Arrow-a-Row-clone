@@ -59,6 +59,23 @@ public class MapTile : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    public void SpawnFinalBoss(int tileIdx, int chapter)
+    {
+        CheckSpawnChest();
+        ClearMonsters(); // 기존 타일에 몬스터가 남아있을 경우 풀로 반환
+
+        // 보스 소환
+        Vector3 BossSpawnPos = GetBossSpawnPos();
+        GameObject Bossmonster = monsterPool.GetFinalBoss();
+        Bossmonster.transform.position = BossSpawnPos;
+        Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward);
+        Bossmonster.transform.SetParent(transform);
+
+        int bossHp = CalculateMonsterHP(tileIdx, chapter, true);
+        Bossmonster.GetComponent<FinalBoss>().SetFinalBossHP(bossHp);
+    }
+
+
     /// <summary>
     /// 타일 번호에 따라 몬스터 배치
     /// </summary>
@@ -121,7 +138,7 @@ public class MapTile : MonoBehaviour
         int baseHP = 50;
 
         if (isBoss)
-            return baseHP + (chapter - 1) * tileIdx + 25 * tileIdx;
+            return baseHP + (chapter - 1) * tileIdx + 50 * tileIdx;
         else
             return baseHP + (chapter - 1) * tileIdx + 10 * tileIdx;
     }

@@ -90,9 +90,12 @@ public class Sword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss") || other.CompareTag("FinalBoss"))
         {
-            other.GetComponent<Monster>().TakeDamage((int)player.GetPlayerStats().SwordATK);
+            if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+                other.GetComponent<Monster>().TakeDamage((int)player.GetPlayerStats().SwordATK);
+            else
+                other.GetComponent<FinalBoss>().TakeDamage((int)player.GetPlayerStats().SwordATK);
             objPool.ReturnSword(gameObject);
         }
     }

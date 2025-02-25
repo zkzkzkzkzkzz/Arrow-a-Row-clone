@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Transactions;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapTileMgr : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class MapTileMgr : MonoBehaviour
         CheckTiles();
         UpdatePlayerTileIdx();
 
-        if (GetPlayerTileIdx() == 5)
+        if (IsPlayerOnFinalBossTile())
         {
             SetTileSpeed(0f);
             if (cameraController != null)
@@ -144,9 +145,18 @@ public class MapTileMgr : MonoBehaviour
             return;
         }
 
-        MapTile mapTile = tile.GetComponent<MapTile>();
-        if (mapTile != null)
-            mapTile.SpawnMonster(tileIdx, chapter);
+        if (IsFinalBossTile())
+        {
+            MapTile mapTile = tile.GetComponent<MapTile>();
+            if (mapTile != null)
+                mapTile.SpawnFinalBoss(tileIdx, chapter);
+        }
+        else
+        {
+            MapTile mapTile = tile.GetComponent<MapTile>();
+            if (mapTile != null)
+                mapTile.SpawnMonster(tileIdx, chapter);
+        }
 
         ++tileIdx;
         if (tileIdx >= 6)
@@ -188,5 +198,26 @@ public class MapTileMgr : MonoBehaviour
     public void SetTileSpeed(float speed)
     {
         tileSpeed = speed;
+    }
+
+    public void OnFinalBossDefeated()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+
+    /// <summary>
+    /// 스폰된 맵 타일이 최종 보스 타일인지 반환
+    /// </summary>
+    public bool IsFinalBossTile()
+    {
+        return (tileIdx == 5 && chapter == 13) ? true : false;
+    }
+
+    /// <summary>
+    /// 플레이어가 현재 최종 보스 타일에 도달했는지 반환
+    /// </summary>
+    private bool IsPlayerOnFinalBossTile()
+    {
+        return (curTileIdx == 5 && curChapter == 13) ? true : false;
     }
 }
