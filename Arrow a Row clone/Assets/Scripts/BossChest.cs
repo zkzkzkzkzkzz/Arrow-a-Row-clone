@@ -19,6 +19,9 @@ public class BossChest : MonoBehaviour
     {
         chestPool = FindObjectOfType<ChestPool>();
         animator = GetComponent<Animator>();
+
+        if (audioSource != null)
+            audioSource.Stop();
     }
 
     private void OnTriggerEnter(Collider other)

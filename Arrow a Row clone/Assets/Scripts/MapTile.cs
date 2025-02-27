@@ -138,7 +138,7 @@ public class MapTile : MonoBehaviour
         int baseHP = 50;
 
         if (isBoss)
-            return baseHP + (chapter - 1) * (tileIdx * 50) + tileIdx * tileIdx;
+            return baseHP + (chapter - 1) * ((tileIdx + 1) * 20) + tileIdx * tileIdx;
         else
             return baseHP + (chapter - 1) * (tileIdx + 10) + tileIdx * tileIdx;
     }
@@ -147,7 +147,7 @@ public class MapTile : MonoBehaviour
     {
         int baseHP = 100;
 
-        return baseHP + (chapter - 1) * tileIdx * tileIdx;
+        return baseHP * (chapter - 1) * tileIdx * tileIdx;
     }
 
     public GateSpawner GetGateSpawner()
