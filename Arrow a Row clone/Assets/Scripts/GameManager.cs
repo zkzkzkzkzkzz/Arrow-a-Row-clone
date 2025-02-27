@@ -21,6 +21,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            ShowGameOverUI();
+    }
+
+    private void ShowGameOverUI()
+    {
+        GameOverUI gameOverUI = GetComponent<GameOverUI>();
+        if (gameOverUI != null)
+            gameOverUI.ShowGameOverUI(true);
+    }
+
     public void EndGame(bool end = true)
     {
         OnGameOver?.Invoke(end);

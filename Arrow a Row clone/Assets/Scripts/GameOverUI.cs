@@ -16,7 +16,7 @@ public class GameOverUI : MonoBehaviour
     }
 
 
-    private void ShowGameOverUI(bool end)
+    public void ShowGameOverUI(bool end)
     {
         audioSource.Stop();
         gameoverPanel.SetActive(end);

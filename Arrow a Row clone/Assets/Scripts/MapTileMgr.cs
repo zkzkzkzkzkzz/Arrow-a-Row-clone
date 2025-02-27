@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Transactions;
+#if UNITY_EDITOR
 using Unity.VisualScripting.ReorderableList;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

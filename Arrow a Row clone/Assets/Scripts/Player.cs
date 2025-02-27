@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
+#if UNITY_EDITOR
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
+#endif
 using UnityEngine;
 
 public class Player : MonoBehaviour
