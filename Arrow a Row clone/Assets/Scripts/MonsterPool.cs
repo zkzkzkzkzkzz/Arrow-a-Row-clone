@@ -8,10 +8,14 @@ public class MonsterPool : MonoBehaviour
     [SerializeField] private int monsterPoolSize = 5;
     [SerializeField] private GameObject bossPref;
     [SerializeField] private int bossPoolSize = 2;
+    [SerializeField] private GameObject finalBossPref;
+    [SerializeField] private int finalBossPoolSize = 1;
+
     [SerializeField] private Transform poolContainer;
 
     private Queue<GameObject> monsterPool = new Queue<GameObject>();
     private Queue<GameObject> bossPool = new Queue<GameObject>();
+    private Queue<GameObject> finalBossPool = new Queue<GameObject>();
 
     private void Start()
     {
@@ -29,6 +33,14 @@ public class MonsterPool : MonoBehaviour
             boss.SetActive(false);
             bossPool.Enqueue(boss);
             boss.transform.SetParent(poolContainer);
+        }
+
+        for (int i = 0; i < finalBossPoolSize; ++i)
+        {
+            GameObject finalBoss = Instantiate(finalBossPref);
+            finalBoss.SetActive(false);
+            finalBossPool.Enqueue(finalBoss);
+            finalBoss.transform.SetParent(poolContainer);
         }
     }
 
@@ -67,5 +79,24 @@ public class MonsterPool : MonoBehaviour
             bossPool.Enqueue(monster);
         else
             monsterPool.Enqueue(monster);
+    }
+
+    public GameObject GetFinalBoss()
+    {
+        GameObject finalBoss = null;
+        if (finalBossPool.Count > 0)
+            finalBoss = finalBossPool.Dequeue();
+        else
+            finalBoss = Instantiate(finalBossPref);
+
+        finalBoss.SetActive(true);
+        return finalBoss;
+    }
+
+    public void ReturnFinalBoss(GameObject boss)
+    {
+        boss.transform.SetParent(poolContainer);
+        boss.SetActive(false);
+        finalBossPool.Enqueue(boss);
     }
 }

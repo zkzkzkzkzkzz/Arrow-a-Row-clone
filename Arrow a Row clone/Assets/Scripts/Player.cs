@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using TMPro;
+#if UNITY_EDITOR
 using Unity.VisualScripting;
 using UnityEditor.PackageManager;
+#endif
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -26,6 +28,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float FinalArrowATK;
 
     private TextMeshPro HPText;
+
+    private bool DeadTrigger = false;
 
     [System.Serializable]
     public struct PlayerStats
@@ -140,6 +144,13 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (!DeadTrigger && stats.HP <= 0)
+        {
+            DeadTrigger = true;
+            GameManager.Instance.EndGame();
+            GetComponent<Collider>().enabled = false;
+        }
+
         // A, D 또는 방향키로 좌우 이동 (왼쪽 : -1, 오른쪽 : 1)
         moveInput = Input.GetAxisRaw("Horizontal");
 

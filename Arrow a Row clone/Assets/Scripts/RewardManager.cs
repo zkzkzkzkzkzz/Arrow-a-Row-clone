@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor.Experimental.GraphView;
+#endif
 
 public class RewardManager : MonoBehaviour
 {
@@ -94,7 +96,10 @@ public class RewardManager : MonoBehaviour
                     availableRewards.Add(nextEffect);
             }
             else
-                availableRewards.Add(effect);
+            {
+                IItemEffect nextEffect = effect.GetNextReward(player);
+                availableRewards.Add(nextEffect);
+            }
         }
 
         return availableRewards;
@@ -111,7 +116,7 @@ public class RewardManager : MonoBehaviour
         {
             player.SelectBow(selectedBow);
 
-            BowEffect bowEffect = new BowEffect(1, RewardType.INFINITE, selectedBow, selectedBow.bowName);
+            BowEffect bowEffect = new BowEffect(2, RewardType.INFINITE, selectedBow, selectedBow.bowName);
             rewardPool.Add(bowEffect);
         }
     }

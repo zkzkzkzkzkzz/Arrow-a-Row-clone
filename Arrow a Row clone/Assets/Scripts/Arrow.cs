@@ -13,12 +13,9 @@ public class Arrow : MonoBehaviour
     private bool isPenetration;
     private int hitCount;
 
-    private AudioSource audioSource;
-
     void Start()
     {
         objPool = FindObjectOfType<ObjPool>();
-        audioSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -34,9 +31,6 @@ public class Arrow : MonoBehaviour
             isPenetration = true;
 
         hitCount = 0;
-
-        if (audioSource != null)
-            audioSource.Play();
     }
 
     void Update()
@@ -49,11 +43,14 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Boss") || other.CompareTag("FinalBoss"))
         {
             if (!isPenetration)
             {
-                other.GetComponent<Monster>().TakeDamage(Mathf.CeilToInt(player.GetFinalArrowATK()));
+                if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+                    other.GetComponent<Monster>().TakeDamage(Mathf.CeilToInt(player.GetFinalArrowATK()));
+                else
+                    other.GetComponent<FinalBoss>().TakeDamage(Mathf.CeilToInt(player.GetFinalArrowATK()));
 
                 if (player.HasLifeSteal())
                 {
@@ -71,8 +68,12 @@ public class Arrow : MonoBehaviour
                     dmg = Mathf.CeilToInt(player.GetFinalArrowATK());
                 else if (hitCount == 1)
                     dmg = Mathf.RoundToInt(player.GetFinalArrowATK() * (player.GetPlayerItemStats().PenetrationDamage / 100f));
-                
-                other.GetComponent<Monster>().TakeDamage(dmg);
+
+                if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+                    other.GetComponent<Monster>().TakeDamage(dmg);
+                else
+                    other.GetComponent<FinalBoss>().TakeDamage(dmg);
+
                 if (player.HasLifeSteal())
                 {
                     int hp = Mathf.RoundToInt(dmg * (player.GetPlayerItemStats().LifeSteal / 100f));

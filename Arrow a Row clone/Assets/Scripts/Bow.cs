@@ -10,6 +10,8 @@ public class Bow : MonoBehaviour
 
     private float nextFireTime;
 
+    private AudioSource audioSource;
+
     void Start()
     {
         player = GetComponentInParent<Player>();
@@ -27,6 +29,8 @@ public class Bow : MonoBehaviour
         }
 
         nextFireTime = 0f;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -37,6 +41,8 @@ public class Bow : MonoBehaviour
         {
             nextFireTime = 0f;
             ShootArrow();
+            if (audioSource != null)
+                audioSource.Play();
         }
 
         if (player.IsChangeBow())
