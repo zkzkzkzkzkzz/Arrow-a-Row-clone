@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
 
     private TextMeshPro HPText;
 
+    private bool DeadTrigger = false;
+
     [System.Serializable]
     public struct PlayerStats
     {
@@ -140,8 +142,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (stats.HP <= 0)
+        if (!DeadTrigger && stats.HP <= 0)
+        {
+            DeadTrigger = true;
             GameManager.Instance.EndGame();
+            GetComponent<Collider>().enabled = false;
+        }
 
         // A, D 또는 방향키로 좌우 이동 (왼쪽 : -1, 오른쪽 : 1)
         moveInput = Input.GetAxisRaw("Horizontal");

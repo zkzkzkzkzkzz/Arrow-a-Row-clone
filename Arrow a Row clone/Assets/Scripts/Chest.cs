@@ -27,6 +27,9 @@ public class Chest : MonoBehaviour
         value = CheckStatValue(stat);
 
         DisplayText();
+
+        if (audioSource != null)
+            audioSource.Stop();
     }
 
     private void OnTriggerEnter(Collider other)
