@@ -7,6 +7,7 @@ public class TitleManager : MonoBehaviour
 {
     public void OnStartButtonClicked()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("GameScene");
     }
 

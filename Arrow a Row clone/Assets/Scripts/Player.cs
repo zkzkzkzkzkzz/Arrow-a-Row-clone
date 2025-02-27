@@ -140,6 +140,9 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (stats.HP <= 0)
+            GameManager.Instance.EndGame();
+
         // A, D 또는 방향키로 좌우 이동 (왼쪽 : -1, 오른쪽 : 1)
         moveInput = Input.GetAxisRaw("Horizontal");
 

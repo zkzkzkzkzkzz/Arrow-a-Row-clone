@@ -65,9 +65,8 @@ public class FinalBoss : MonoBehaviour
             monsterPool.ReturnFinalBoss(gameObject);
             SpawnChest(tempPos);
 
-            MapTileMgr mapTileMgr = FindObjectOfType<MapTileMgr>();
-            if (mapTileMgr != null)
-                mapTileMgr.OnFinalBossDefeated();
+            Debug.Log("최종 보스 처치");
+            GameManager.Instance.EndGame();
         }
         else
             SetFinalBossHP(curHP - damage);

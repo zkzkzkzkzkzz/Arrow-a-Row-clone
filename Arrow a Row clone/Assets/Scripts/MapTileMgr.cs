@@ -200,11 +200,6 @@ public class MapTileMgr : MonoBehaviour
         tileSpeed = speed;
     }
 
-    public void OnFinalBossDefeated()
-    {
-        SceneManager.LoadScene("TitleScene");
-    }
-
     /// <summary>
     /// 스폰된 맵 타일이 최종 보스 타일인지 반환
     /// </summary>
