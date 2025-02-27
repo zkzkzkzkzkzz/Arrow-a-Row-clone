@@ -71,7 +71,7 @@ public class MapTile : MonoBehaviour
         Bossmonster.transform.rotation = Quaternion.LookRotation(-transform.forward);
         Bossmonster.transform.SetParent(transform);
 
-        int bossHp = CalculateMonsterHP(tileIdx, chapter, true);
+        int bossHp = CalculateFinalBossHP(tileIdx, chapter);
         Bossmonster.GetComponent<FinalBoss>().SetFinalBossHP(bossHp);
     }
 
@@ -138,9 +138,16 @@ public class MapTile : MonoBehaviour
         int baseHP = 50;
 
         if (isBoss)
-            return baseHP + (chapter - 1) * (tileIdx + 25) + tileIdx * tileIdx;
+            return baseHP + (chapter - 1) * (tileIdx * 50) + tileIdx * tileIdx;
         else
             return baseHP + (chapter - 1) * (tileIdx + 10) + tileIdx * tileIdx;
+    }
+
+    private int CalculateFinalBossHP(int tileIdx, int chapter)
+    {
+        int baseHP = 100;
+
+        return baseHP + (chapter - 1) * tileIdx * tileIdx;
     }
 
     public GateSpawner GetGateSpawner()
