@@ -14,6 +14,8 @@ public class ScoreUI : MonoBehaviour
     private float curScore = 0;
     private float scoreSpeed;
 
+    private bool isTrigger = false;
+
     private void Start()
     {
         mapTileMgr = FindObjectOfType<MapTileMgr>();
@@ -21,6 +23,8 @@ public class ScoreUI : MonoBehaviour
             Debug.LogError("ScoreUI에서 MapTileMgr을 찾을 수 없습니다.");
 
         UpdateScore();
+
+        GameManager.Instance.OnGameOver += AddCoin;
     }
 
     private void Update()
@@ -39,10 +43,15 @@ public class ScoreUI : MonoBehaviour
         coinText.text = ShopManager.Instance.GetPlayerCoins().ToString();
     }
 
-    public void AddCoin()
+    private void AddCoin(bool end = true)
     {
-        int coin = ShopManager.Instance.GetPlayerCoins();
-        coin += Mathf.RoundToInt(curScore * 0.026f);
-        ShopManager.Instance.SetPlayerCoins(coin);
+        if (!isTrigger)
+        {
+            isTrigger = true;
+            int coin = ShopManager.Instance.GetPlayerCoins();
+            coin += Mathf.RoundToInt(curScore * 0.026f);
+            ShopManager.Instance.SetPlayerCoins(coin);
+            ShopManager.Instance.SaveShopData();
+        }
     }
 }

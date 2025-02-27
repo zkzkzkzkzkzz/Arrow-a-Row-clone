@@ -67,7 +67,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void SaveShopData()
+    public void SaveShopData()
     {
         HashSet<string> existingIds = new HashSet<string>();
         List<ShopItem> filteredItems = new List<ShopItem>();
