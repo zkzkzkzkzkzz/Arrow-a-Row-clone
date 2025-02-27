@@ -7,6 +7,7 @@ using UnityEngine;
 public class ScoreUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TextMeshProUGUI coinText;
 
     private MapTileMgr mapTileMgr;
 
@@ -34,5 +35,14 @@ public class ScoreUI : MonoBehaviour
     {
         if (scoreText != null)
             scoreText.text = "Score: " + ((int)curScore).ToString();
+
+        coinText.text = ShopManager.Instance.GetPlayerCoins().ToString();
+    }
+
+    public void AddCoin()
+    {
+        int coin = ShopManager.Instance.GetPlayerCoins();
+        coin += Mathf.RoundToInt(curScore * 0.026f);
+        ShopManager.Instance.SetPlayerCoins(coin);
     }
 }
