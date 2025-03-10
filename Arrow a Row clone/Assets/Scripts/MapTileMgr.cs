@@ -21,9 +21,11 @@ public class MapTileMgr : MonoBehaviour
     private List<GameObject> activeTiles = new List<GameObject>();
     private Queue<GameObject> recyclePool = new Queue<GameObject>();
 
+    // 전체 맵 타일 인덱스 & 챕터
     private int tileIdx = 0;
     private int chapter = 1;
 
+    // 플레이어가 위치한 맵 타일 인덱스 & 챕터
     private int curTileIdx = 0;
     private int curChapter = 1;
     private int recycleTileCnt = 0;

@@ -61,43 +61,10 @@ public class FinalBoss : MonoBehaviour
         int curHP = GetFinalBossHP();
         if (curHP - damage <= 0)
         {
-            Transform tempPos = transform.parent;
-            monsterPool.ReturnFinalBoss(gameObject);
-            SpawnChest(tempPos);
-
             Debug.Log("최종 보스 처치");
             GameManager.Instance.EndGame();
         }
         else
             SetFinalBossHP(curHP - damage);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            int damage = GetFinalBossHP();
-
-            if (player.HasShield())
-            {
-                damage = Mathf.RoundToInt(damage * (1 - (player.GetPlayerItemStats().Shield / 100)));
-            }
-
-            player.TakeDamage(damage);
-            Transform tempPos = transform.parent;
-            monsterPool.ReturnFinalBoss(gameObject);
-            SpawnChest(tempPos);
-        }
-    }
-
-    private void SpawnChest(Transform parent)
-    {
-        Vector3 spawnPos = transform.position;
-        GameObject chest = chestPool.GetBossChest();
-        chest.transform.position = new Vector3(spawnPos.x, spawnPos.y + 0.7f, spawnPos.z);
-        chest.transform.rotation = Quaternion.LookRotation(-Vector3.forward);
-        chest.transform.SetParent(parent);
-
-        chest.GetComponent<BossChest>().IdleBossChest();
     }
 }

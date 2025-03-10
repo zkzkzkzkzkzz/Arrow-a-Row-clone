@@ -40,10 +40,7 @@ public class Monster : MonoBehaviour
     public struct MonsterStats
     {
         public int HP;
-
-        // 보스일 경우에만 아래 스탯 사용
         public bool isBoss;
-        public int Damage;
     }
 
     [SerializeField] private MonsterStats stats;

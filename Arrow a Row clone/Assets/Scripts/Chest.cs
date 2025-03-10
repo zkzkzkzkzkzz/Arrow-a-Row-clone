@@ -99,8 +99,6 @@ public class Chest : MonoBehaviour
     /// <summary>
     /// 애니메이션 재생 이후 풀로 자동 반환
     /// </summary>
-    /// <param name="delay"></param>
-    /// <returns></returns>
     private IEnumerator ReturnChestAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
